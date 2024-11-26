@@ -1,10 +1,13 @@
+import { useState } from "react";
 import Link from "next/link";
 
 const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <header className="bg-pink-500 text-white py-4 shadow-lg fixed top-0 w-full z-50">
       <div className="container mx-auto px-4 flex items-center justify-between">
-        {/* Logo SVG de démonstration */}
+        {/* Logo et nom de la boutique */}
         <Link href="/" className="text-xl font-bold flex items-center space-x-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +30,7 @@ const Header = () => {
         <button
           type="button"
           className="md:hidden"
-          onClick={() => alert("Menu mobile à implémenter")}
+          onClick={() => setMenuOpen(!menuOpen)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +43,7 @@ const Header = () => {
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="M4 6h16M4 12h16m-7 6h7"
+              d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"}
             />
           </svg>
         </button>
@@ -61,6 +64,50 @@ const Header = () => {
           </Link>
         </nav>
       </div>
+
+      {/* Menu déroulant (mobile uniquement) */}
+      {menuOpen && (
+        <nav className="bg-pink-600 text-white md:hidden shadow-lg">
+          <ul className="flex flex-col space-y-2 p-4">
+            <li>
+              <Link
+                href="/"
+                className="block py-2 px-4 rounded hover:bg-pink-500 transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                Accueil
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/galerie"
+                className="block py-2 px-4 rounded hover:bg-pink-500 transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                Galerie
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/conseils-entretien"
+                className="block py-2 px-4 rounded hover:bg-pink-500 transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                Conseils
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/guides"
+                className="block py-2 px-4 rounded hover:bg-pink-500 transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                Guides
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      )}
     </header>
   );
 };
