@@ -1,110 +1,105 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
-type Plant = {
+type Photo = {
   id: string;
   name: string;
-  image: string;
-  link: string;
 };
 
-export default function Guides() {
-  const [searchTerm, setSearchTerm] = useState("");
+type Category = {
+  id: string;
+  name: string;
+  photos: Photo[];
+};
 
-  // Liste des plantes (à remplacer par une API ou une source de données dynamique)
-  const plants: Plant[] = [
-    { id: "1", name: "Rose", image: "/images/rose.jpg", link: "/guides/rose" },
-    {
-      id: "2",
-      name: "Orchidée",
-      image: "/images/orchidee.jpg",
-      link: "/guides/orchidee",
-    },
-    { id: "3", name: "Lys", image: "/images/lys.jpg", link: "/guides/lys" },
-    {
-      id: "4",
-      name: "Succulente",
-      image: "/images/succulente.jpg",
-      link: "/guides/succulente",
-    },
-    {
-      id: "5",
-      name: "Tulipe",
-      image: "/images/tulipe.jpg",
-      link: "/guides/tulipe",
-    },
-    {
-      id: "6",
-      name: "Cactus",
-      image: "/images/cactus.jpg",
-      link: "/guides/cactus",
-    },
-    {
-      id: "7",
-      name: "Lavande",
-      image: "/images/lavande.jpg",
-      link: "/guides/lavande",
-    },
-    {
-      id: "8",
-      name: "Basilic",
-      image: "/images/basilic.jpg",
-      link: "/guides/basilic",
-    },
-  ];
+export default function Galerie() {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const PARENT_FOLDER_ID = "1mtXYIUsUH8sBKw0LbXKfnkFnZiB_86eg"; // ID du dossier principal
+  const API_KEY = "AIzaSyDSRIRF1QzXiOMqutixiGmcbJAg44JYOp8"; // Votre clé API
 
-  // Filtrer les plantes en fonction de la recherche
-  const filteredPlants = plants.filter((plant) =>
-    plant.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const foldersRes = await fetch(
+          `https://www.googleapis.com/drive/v3/files?q='${PARENT_FOLDER_ID}'+in+parents+and+mimeType='application/vnd.google-apps.folder'&key=${API_KEY}&fields=files(id,name)`
+        );
+        const foldersData = await foldersRes.json();
+        const folders = foldersData.files || [];
+
+        const categoriesWithPhotos = await Promise.all(
+          folders.map(async (folder: { id: string; name: string }) => {
+            const photosRes = await fetch(
+              `https://www.googleapis.com/drive/v3/files?q='${folder.id}'+in+parents+and+mimeType!='application/vnd.google-apps.folder'&key=${API_KEY}&fields=files(id,name)`
+            );
+            const photosData = await photosRes.json();
+            const photos = photosData.files || [];
+            return {
+              id: folder.id,
+              name: folder.name,
+              photos,
+            };
+          })
+        );
+
+        setCategories(categoriesWithPhotos);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des catégories :", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   return (
-    <main className="bg-white text-gray-800 min-h-screen p-4">
-      <h1 className="text-4xl font-bold text-pink-600 text-center mb-8">
-        Guides spécifiques
-      </h1>
+    <main className="bg-white text-gray-800 min-h-screen">
+      {/* Barre de navigation */}
+      <nav className="fixed top-0 left-0 w-full bg-pink-500 text-white py-4 shadow-lg z-50">
+        <div className="container mx-auto px-4 flex justify-between items-center">
+          <h1 className="text-xl font-bold">Galerie de Créations</h1>
+          <Link
+            href="/"
+            className="bg-white text-pink-500 px-4 py-2 rounded-lg shadow hover:bg-pink-100 transition"
+          >
+            Retour à l'accueil
+          </Link>
+        </div>
+      </nav>
 
-      {/* Champ de recherche */}
-      <div className="max-w-3xl mx-auto mb-8">
-        <input
-          type="text"
-          placeholder="Recherchez une fleur ou une plante..."
-          className="w-full px-4 py-2 border rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-pink-500"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
+      {/* Contenu principal */}
+      <div className="pt-20 p-4">
+        {categories.map((category) => (
+          <section
+            key={category.id}
+            className="mb-16 p-6 bg-pink-50 rounded-lg shadow-lg"
+          >
+            {/* Titre de catégorie */}
+            <div className="flex items-center justify-center mb-8">
+              <h2 className="text-3xl font-bold text-pink-600 relative">
+                {category.name}
+                <span className="block h-1 w-16 bg-pink-300 mx-auto mt-2"></span>
+              </h2>
+            </div>
 
-      {/* Résultats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-6">
-        {filteredPlants.length > 0 ? (
-          filteredPlants.map((plant) => (
-            <a
-              key={plant.id}
-              href={plant.link}
-              className="bg-pink-50 rounded-lg shadow-md hover:shadow-lg transition overflow-hidden"
-            >
-              <div className="relative w-full h-40">
-                <Image
-                  src={plant.image}
-                  alt={plant.name}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-t-lg"
-                />
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-800 text-center">
-                  {plant.name}
-                </h3>
-              </div>
-            </a>
-          ))
-        ) : (
-          <p className="col-span-full text-center text-gray-600">
-            Aucun résultat trouvé.
-          </p>
-        )}
+            {/* Grille des photos */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+              {category.photos.map((photo) => (
+                <div
+                  key={photo.id}
+                  className="relative w-full h-48 lg:h-64 bg-gray-100 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition transform hover:scale-105"
+                >
+                  <Image
+                    src={`https://drive.google.com/uc?id=${photo.id}`}
+                    alt={photo.name}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-lg"
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
     </main>
   );
