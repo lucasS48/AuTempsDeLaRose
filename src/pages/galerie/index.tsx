@@ -51,8 +51,8 @@ export default function Galerie() {
   }, []);
 
   return (
-    <main className="bg-white text-gray-800 min-h-screen">
-      <h1 className="text-4xl font-bold text-pink-600 text-center mt-8">
+    <main className="bg-white text-gray-800 min-h-screen p-4">
+      <h1 className="text-4xl font-bold text-pink-600 text-center">
         Galerie photos
       </h1>
 
