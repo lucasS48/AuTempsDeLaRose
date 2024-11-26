@@ -53,21 +53,12 @@ export default function Galerie() {
 
   return (
     <main className="bg-white text-gray-800 min-h-screen">
-      {/* Barre de navigation */}
-      <nav className="fixed top-0 left-0 w-full bg-pink-500 text-white py-4 shadow-lg z-50">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold">Galerie de Créations</h1>
-          <Link
-            href="/"
-            className="bg-white text-pink-500 px-4 py-2 rounded-lg shadow hover:bg-pink-100 transition"
-          >
-            Retour à l&apos;accueil
-          </Link>
-        </div>
-      </nav>
+      <h1 className="text-4xl font-bold text-pink-600 text-center mt-4">
+        Galerie photos
+      </h1>
 
       {/* Contenu principal */}
-      <div className="pt-20 p-4">
+      <div className="pt-8 p-4">
         {categories.map((category) => (
           <section
             key={category.id}
