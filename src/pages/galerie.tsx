@@ -61,7 +61,7 @@ export default function Galerie() {
             href="/"
             className="bg-white text-pink-500 px-4 py-2 rounded-lg shadow hover:bg-pink-100 transition"
           >
-            Retour à l'accueil
+            Retour à l&apos;accueil
           </Link>
         </div>
       </nav>
