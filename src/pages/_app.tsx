@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 export default function App({ Component, pageProps }: AppProps) {
   return  <>
   <Header />
-  <div className="pt-20">
+  <div className="pt-16">
         <Component {...pageProps} />
       </div>
   <Footer />
