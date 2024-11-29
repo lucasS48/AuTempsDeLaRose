@@ -137,7 +137,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                   <h2 className="text-2xl sm:text-3xl text-white font-bold text-center">
                     {plant.name.toUpperCase()}
                   </h2>
-                  <h3 className="text-lg sm:text-xl text-center mb-10 italic">
+                  <h3 className="text-lg sm:text-xl text-center mb-6 italic">
                     {plant.subtitle}
                   </h3>
 
@@ -170,7 +170,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                   </div>
 
                   {/* Conseils */}
-                  <div className="mt-6 text-center">
+                  <div className="text-center">
                     <h4 className="text-gold text-lg sm:text-xl font-bold mb-2">
                       Conseils :
                     </h4>
