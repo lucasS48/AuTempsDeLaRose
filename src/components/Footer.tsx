@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-      <footer className="bg-pink-500 text-white py-6">
+      <footer className="bg-black-soft text-white py-6">
         <div className="container mx-auto px-4 text-center">
           {/* Nom et slogan de la boutique */}
           <h2 className="text-lg font-bold">Au Temps de la Rose</h2>

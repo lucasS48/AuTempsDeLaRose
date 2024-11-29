@@ -5,7 +5,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="bg-pink-500 text-white py-4 shadow-lg fixed top-0 w-full z-50">
+    <header className="bg-black-soft text-white py-4 shadow-lg fixed top-0 w-full z-50">
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logo et nom de la boutique */}
         <Link href="/" className="text-xl font-bold flex items-center space-x-2">
@@ -61,6 +61,9 @@ const Header = () => {
           </Link>
           <Link href="/guides" className="hover:text-gray-200 transition">
             Guides
+          </Link>
+          <Link href="/plantes" className="hover:text-gray-200 transition">
+            Plantes
           </Link>
         </nav>
       </div>
