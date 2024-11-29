@@ -70,12 +70,12 @@ const Header = () => {
 
       {/* Menu déroulant (mobile uniquement) */}
       {menuOpen && (
-        <nav className="bg-pink-600 text-white md:hidden shadow-lg">
+        <nav className="bg-black-soft text-white md:hidden shadow-lg">
           <ul className="flex flex-col space-y-2 p-4">
             <li>
               <Link
                 href="/"
-                className="block py-2 px-4 rounded hover:bg-pink-500 transition"
+                className="block py-2 px-4 rounded hover:bg-gold-veryDark transition"
                 onClick={() => setMenuOpen(false)}
               >
                 Accueil
@@ -84,7 +84,7 @@ const Header = () => {
             <li>
               <Link
                 href="/galerie"
-                className="block py-2 px-4 rounded hover:bg-pink-500 transition"
+                className="block py-2 px-4 rounded hover:bg-gold-veryDark transition"
                 onClick={() => setMenuOpen(false)}
               >
                 Galerie
@@ -93,7 +93,7 @@ const Header = () => {
             <li>
               <Link
                 href="/conseils-entretien"
-                className="block py-2 px-4 rounded hover:bg-pink-500 transition"
+                className="block py-2 px-4 rounded hover:bg-gold-veryDark transition"
                 onClick={() => setMenuOpen(false)}
               >
                 Conseils
@@ -102,10 +102,19 @@ const Header = () => {
             <li>
               <Link
                 href="/guides"
-                className="block py-2 px-4 rounded hover:bg-pink-500 transition"
+                className="block py-2 px-4 rounded hover:bg-gold-veryDark transition"
                 onClick={() => setMenuOpen(false)}
               >
                 Guides
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/plantes"
+                className="block py-2 px-4 rounded hover:bg-gold-veryDark transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                Plantes
               </Link>
             </li>
           </ul>

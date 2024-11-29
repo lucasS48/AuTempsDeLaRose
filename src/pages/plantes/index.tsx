@@ -52,15 +52,39 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
   };
 
   return (
-    <div className="relative bg-black flex flex-col items-center justify-center overflow-hidden mt-20">
+    <div className="relative bg-black flex flex-col items-center justify-center overflow-hidden mt-5">
+      {/* Décorations de fleurs */}
+      <img
+        src="/images/decorations/fleurs-HautGauche.png"
+        alt="Haut Gauche"
+        className="absolute top-0 left-0 w-[25vmin] z-10"
+      />
+      <img
+        src="/images/decorations/fleurs-HautDroite.png"
+        alt="Haut Droite"
+        className="absolute top-[10%] right-0 w-[15vmin] z-10"
+      />
+      <img
+        src="/images/decorations/fleurs-BasGauche.png"
+        alt="Bas Gauche"
+        className="absolute bottom-0 left-0 w-[35vmin] z-10"
+      />
+      <img
+        src="/images/decorations/fleurs-BasDroite.png"
+        alt="Bas Droite"
+        className="absolute bottom-0 right-0 w-[35vmin] z-10"
+      />
+
       {/* Titre */}
-      <h1 className="text-2xl sm:text-4xl font-bold text-white mb-8 text-center leading-tight sm:leading-normal">
-        Nos conseils d&apos;entretien <br className="sm:hidden" />
-        personnalisés :
+      <h1 className="font-sacramento text-5xl sm:text-7xl font-bold text-gold text-center leading-tight sm:leading-normal mt-10 z-20">
+        Conseils d&apos;entretien
       </h1>
+      <h2 className="text-lg sm:text-2xl font-bold text-white mb-8 text-center leading-tight sm:leading-normal z-20">
+        Pour des fleurs en pleine santé,<br className="sm:hidden" /> plus longtemps
+      </h2>
 
       {/* Carrousel */}
-      <div className="relative w-screen h-[150vmin] sm:h-[80vmin] flex items-center justify-center overflow-hidden">
+      <div className="relative w-screen h-[80vh] sm:h-[70vh] flex items-center justify-center overflow-hidden">
         {plants.map((plant, index) => {
           const position =
             index === currentIndex
@@ -74,7 +98,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
           return (
             <motion.div
               key={plant.name}
-              className="absolute w-[90vw] h-[150vmin] sm:w-[50vw] sm:h-[70vmin]"
+              className="absolute w-[90vw] h-[80vh] sm:w-[50vw] sm:h-[70vmin]"
               variants={variants}
               animate={position}
               initial={position}
@@ -94,7 +118,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                         src={plant.image1}
                         alt={`${plant.name} image 1`}
                         layout="fill"
-                        objectFit="cover" // Remplit le parent tout en respectant le ratio d'aspect
+                        objectFit="cover"
                         className="rounded-md"
                       />
                     </div>
@@ -103,7 +127,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                         src={plant.image2}
                         alt={`${plant.name} image 2`}
                         layout="fill"
-                        objectFit="cover" // Remplit le parent tout en respectant le ratio d'aspect
+                        objectFit="cover"
                         className="rounded-md"
                       />
                     </div>
@@ -159,7 +183,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                     src={plant.image1}
                     alt={`${plant.name} image 1`}
                     layout="fill"
-                    objectFit="cover" // Remplit le parent tout en respectant le ratio d'aspect
+                    objectFit="cover"
                     className="rounded-md"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-40"></div>
