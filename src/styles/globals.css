@@ -14,39 +14,16 @@
   }
 }
 
-body {
-  @apply bg-black text-gold-light font-kollectif;
-}
-
-a {
-  @apply text-gold hover:text-gold-dark transition duration-300;
-}
-
-h1, h2, h3 {
-  @apply text-gold font-bold;
-}
-
-button {
-  @apply bg-gold hover:bg-gold-dark text-black rounded-md px-4 py-2 transition duration-300;
-}
-
 @font-face {
-  font-family: 'Kollectif';
-  src: url('/fonts/kollectif/Kollectif.ttf') format('trueType');
+  font-family: "JosefinSlab";
+  src: url("/fonts/JosefinSlab/JosefinSlab-ExtraLight.ttf") format("trueType");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Kollectif';
-  src: url('/fonts/kollectif/Kollectif-Bold.ttf') format('trueType');
+  font-family: "JosefinSlab";
+  src: url("/fonts/JosefinSlab/JosefinSlab-Bold.ttf") format("trueType");
   font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Sacramento';
-  src: url('/fonts/sacramento/Sacramento-Regular.ttf') format('trueType');
-  font-weight: normal;
   font-style: normal;
 }
