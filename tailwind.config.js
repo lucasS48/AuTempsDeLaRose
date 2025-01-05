@@ -8,7 +8,7 @@ module.exports = {
       },
       colors: {
         gold: {
-          DEFAULT: "#A9890A",
+          DEFAULT: "#cdb800",
         },
         grey: {
           DEFAULT: "#292D32",

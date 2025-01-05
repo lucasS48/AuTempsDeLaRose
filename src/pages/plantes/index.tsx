@@ -16,10 +16,12 @@ type PlantData = {
 
 export default function Carousel({ plants }: { plants: PlantData[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [flippedStates, setFlippedStates] = useState<boolean[]>([]);
   const [fontSizes, setFontSizes] = useState<string[]>([]);
 
   useEffect(() => {
+    setFlippedStates(plants.map(() => false)); // Initialiser les états à false pour chaque carte
+
     const calculateFontSizes = () => {
       const newFontSizes = plants.map((plant) => {
         const tempDiv = document.createElement("div");
@@ -60,8 +62,10 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
     setCurrentIndex((prev) => (prev - 1 + plants.length) % plants.length);
   };
 
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped);
+  const handleFlip = (index: number) => {
+    setFlippedStates((prev) =>
+      prev.map((flipped, i) => (i === index ? !flipped : flipped))
+    );
   };
 
   const variants = {
@@ -93,34 +97,48 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
     <div className="relative bg-white flex flex-col items-center justify-center overflow-hidden">
       {/* Carrousel */}
       <div className="relative w-screen h-[80vh] sm:h-[70vh] flex items-center justify-center overflow-hidden mt-10">
-        {plants.map((plant, index) => {
-          const position =
-            index === currentIndex
-              ? "center"
-              : index === (currentIndex - 1 + plants.length) % plants.length
-              ? "left"
-              : index === (currentIndex + 1) % plants.length
-              ? "right"
-              : "hidden";
-
-          return (
-            <motion.div
-              key={plant.name}
-              className="absolute w-[90vw] h-[80vh] sm:w-[50vw] sm:h-[70vmin]"
-              variants={variants}
-              animate={position}
-              initial={position}
-              transition={{
-                type: "spring",
-                stiffness: 120,
-                damping: 20,
-                duration: 1.5,
+        {plants.map((plant, index) => (
+          <motion.div
+            key={plant.name}
+            className="absolute w-[90vw] h-[80vh] sm:w-[50vw] sm:h-[70vmin] perspective"
+            variants={variants}
+            animate={
+              index === currentIndex
+                ? "center"
+                : index === (currentIndex - 1 + plants.length) % plants.length
+                ? "left"
+                : index === (currentIndex + 1) % plants.length
+                ? "right"
+                : "hidden"
+            }
+            initial="hidden"
+            transition={{
+              type: "spring",
+              stiffness: 120,
+              damping: 20,
+              duration: 1.5,
+            }}
+          >
+            <div
+              className="relative w-full h-full transition-transform duration-700"
+              style={{
+                transformStyle: "preserve-3d",
+                transform: flippedStates[index]
+                  ? "rotateY(180deg)"
+                  : "rotateY(0deg)",
               }}
             >
-              {!isFlipped ? (
+              {/* Face avant */}
+              <div
+                className="absolute w-full h-full backface-hidden"
+                style={{
+                  transform: "rotateY(0deg)",
+                  backfaceVisibility: "hidden",
+                }}
+              >
                 <div
                   className="relative bg-black rounded-[50px] overflow-hidden h-full w-full shadow-lg cursor-pointer"
-                  onClick={handleFlip}
+                  onClick={() => handleFlip(index)}
                 >
                   <Image
                     src={plant.image1}
@@ -136,19 +154,30 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                     <h2 className="text-4xl font-josefinslab font-bold text-gold sm:text-3xl lg:text-4xl">
                       {plant.name}
                     </h2>
-
                     <button
-                      className="mt-8 bg-grey text-whitek px-4 py-2 rounded-md font-semibold hover:bg-yellow-500"
-                      onClick={handleFlip}
+                      className="mt-8 bg-grey text-white px-4 py-2 rounded-md font-semibold hover:bg-yellow-500"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleFlip(index);
+                      }}
                     >
                       Voir les conseils
                     </button>
                   </div>
                 </div>
-              ) : (
+              </div>
+
+              {/* Face arrière */}
+              <div
+                className="absolute w-full h-full backface-hidden"
+                style={{
+                  transform: "rotateY(180deg)",
+                  backfaceVisibility: "hidden",
+                }}
+                onClick={() => handleFlip(index)}
+              >
                 <div
-                  className="relative bg-[url('/images/bg-vieux-papier.webp')] bg-cover rounded-[50px] border-[8px] border-gold overflow-hidden h-full w-full shadow-lg flex flex-col items-center p-6 sm:p-8 text-black cursor-pointer flipped-card"
-                  onClick={handleFlip}
+                  className="relative bg-[url('/images/bg-vieux-papier.webp')] bg-cover bg-center rounded-[50px] border-[4px] border-gold overflow-hidden h-full w-full shadow-lg flex flex-col items-center p-6 sm:p-8 text-black cursor-pointer flipped-card"
                   style={{
                     fontSize: fontSizes[index],
                     overflowY: "scroll",
@@ -163,48 +192,51 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                     {plant.subtitle}
                   </h3>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                  <div className="grid grid-cols-1 gap-4 w-full">
                     <div className="flex items-center gap-2">
-                      <img
+                      <Image
                         src="/icons/soleil.png"
                         alt="Sunlight Icon"
-                        className="w-12 h-12"
+                        width={48}
+                        height={48}
                       />
                       <p className="text-lg">{plant.sunlight}</p>
                     </div>
                     <div className="flex items-center gap-2">
-                      <img
+                      <Image
                         src="/icons/arrosoir.png"
                         alt="Watering Icon"
-                        className="w-12 h-12"
+                        width={48}
+                        height={48}
                       />
                       <p className="text-lg">{plant.watering}</p>
                     </div>
                     <div className="flex items-center gap-2">
-                      <img
+                      <Image
                         src="/icons/floraison.png"
                         alt="Blooming Icon"
-                        className="w-12 h-12"
+                        width={48}
+                        height={48}
                       />
                       <p className="text-lg">{plant.blooming}</p>
                     </div>
                   </div>
 
-                  <div className="bg-grey p-4 mt-6 rounded-md shadow-sm">
+                  <div className="bg-grey p-4 mt-6 rounded-xl shadow-sm">
                     <h4 className="text-gold text-lg sm:text-xl lg:text-2xl font-bold mb-2">
                       Conseils :
                     </h4>
                     <p className="text-white">{plant.tips}</p>
                   </div>
                 </div>
-              )}
-            </motion.div>
-          );
-        })}
+              </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
 
       {/* Boutons de contrôle */}
-      <div className="flex items-center justify-center gap-4 mt-4 mb-10">
+      <div className="flex items-center justify-center gap-4 mt-4">
         <button
           onClick={handlePrevious}
           className="w-10 h-10 bg-gray-700 text-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-500"
