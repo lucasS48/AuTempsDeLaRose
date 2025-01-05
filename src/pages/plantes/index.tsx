@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchPlantsData } from "../api/api";
-import { motion, PanInfo } from "framer-motion"; // Import de PanInfo
+import { motion, PanInfo } from "framer-motion";
 import Image from "next/image";
 
 type PlantData = {
@@ -20,7 +20,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
   const [fontSizes, setFontSizes] = useState<string[]>([]);
 
   useEffect(() => {
-    setFlippedStates(plants.map(() => false)); // Initialiser les états à false pour chaque carte
+    setFlippedStates(plants.map(() => false));
 
     const calculateFontSizes = () => {
       const newFontSizes = plants.map((plant) => {
@@ -72,10 +72,19 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
   ) => {
-    if (info.offset.x > 100) {
+    const velocityThreshold = 0.5; // Seuil de vélocité
+    const offsetThreshold = 50; // Seuil de déplacement
+
+    if (
+      info.offset.x > offsetThreshold ||
+      info.velocity.x > velocityThreshold
+    ) {
       // Glissement vers la droite
       handlePrevious();
-    } else if (info.offset.x < -100) {
+    } else if (
+      info.offset.x < -offsetThreshold ||
+      info.velocity.x < -velocityThreshold
+    ) {
       // Glissement vers la gauche
       handleNext();
     }
