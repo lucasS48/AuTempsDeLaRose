@@ -118,7 +118,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
   return (
     <div className="relative bg-white flex flex-col items-center justify-center overflow-hidden">
       {/* Carrousel */}
-      <div className="relative w-screen h-[80vh] sm:h-[70vh] flex items-center justify-center overflow-hidden mt-10">
+      <div className="relative w-screen h-[80vh] sm:h-[70vh] flex items-center justify-center overflow-hidden mt-10 ">
         {plants.map((plant, index) => (
           <motion.div
             key={plant.name}
@@ -162,15 +162,20 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                 }}
                 onClick={() => handleFlip(index)}
               >
-                <div className="relative bg-black rounded-[50px] overflow-hidden h-full w-full shadow-lg cursor-pointer">
-                  <Image
-                    src={plant.image1}
-                    alt={`${plant.name} front image`}
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-[50px]"
-                  />
-                  <div className="absolute bottom-0 w-full bg-[url('/images/bg-vieux-papier2.webp')] p-4 text-center text-white">
+                <div className="relative bg-black rounded-[50px] overflow-hidden h-full w-full shadow-lg cursor-pointer flex flex-col">
+                  {/* Section image */}
+                  <div className="relative flex-grow">
+                    <Image
+                      src={plant.image1}
+                      alt={`${plant.name} front image`}
+                      layout="fill"
+                      objectFit="cover"
+                      className="rounded-t-[50px]"
+                    />
+                  </div>
+
+                  {/* Section texte et bouton */}
+                  <div className="bg-[url('/images/bg-vieux-papier2.webp')] p-4 text-center text-white rounded-b-[50px]">
                     <h3 className="text-2xl text-black sm:text-3xl lg:text-4xl">
                       {plant.subtitle}
                     </h3>
@@ -200,7 +205,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                 onClick={() => handleFlip(index)}
               >
                 <div
-                  className="relative bg-[url('/images/bg-vieux-papier.webp')] bg-cover bg-center rounded-[50px] border-[4px] border-gold overflow-hidden h-full w-full shadow-lg flex flex-col items-center p-6 sm:p-8 text-black cursor-pointer flipped-card"
+                  className="relative bg-[url('/images/bg-vieux-papier.webp')] bg-cover bg-center rounded-[50px] border-[1px] border-grey overflow-hidden h-full w-full shadow-lg flex flex-col items-center p-6 sm:p-8 text-black cursor-pointer flipped-card"
                   style={{
                     fontSize: fontSizes[index],
                     overflowY: "scroll",

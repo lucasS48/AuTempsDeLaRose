@@ -1,9 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faInstagram,
-  faFacebook,
-  faPinterest,
-} from "@fortawesome/free-brands-svg-icons";
+import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
   return (
@@ -34,7 +30,7 @@ const Footer = () => {
                   href="mailto:contact@boutiquedefleurs.com"
                   className="hover:underline text-gold"
                 >
-                  contact@boutiquedefleurs.com
+                  autempsdelarose@outlook.com
                 </a>
               </p>
             </div>
@@ -47,25 +43,22 @@ const Footer = () => {
             </h3>
             <div className="flex space-x-6 text-3xl">
               <a
-                href="#"
+                href="https://www.instagram.com/autempsdelarose?igsh=MTBwaXJqYm94anR1dw=="
                 className="text-black hover:text-gold transition duration-300"
                 aria-label="Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <FontAwesomeIcon icon={faInstagram} />
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/share/13zbdRhMeS/?mibextid=wwXIfr"
                 className="text-black hover:text-gold transition duration-300"
                 aria-label="Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <FontAwesomeIcon icon={faFacebook} />
-              </a>
-              <a
-                href="#"
-                className="text-black hover:text-gold transition duration-300"
-                aria-label="Pinterest"
-              >
-                <FontAwesomeIcon icon={faPinterest} />
               </a>
             </div>
           </div>
@@ -76,7 +69,8 @@ const Footer = () => {
               Newsletter
             </h3>
             <p className="text-sm mb-4">
-              Inscrivez-vous pour recevoir nos dernières actualités et offres.
+              Inscrivez-vous pour recevoir nos dernières actualités et offres
+              par email.
             </p>
             <form className="flex flex-col space-y-3">
               <input
