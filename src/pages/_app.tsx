@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Header />
-      <div className="pt-16 pb-10">
+      <div className="pt-16">
         <AnimatePresence mode="wait" initial={false}>
           <Component {...pageProps} key={router.route} />
         </AnimatePresence>

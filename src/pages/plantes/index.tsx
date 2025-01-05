@@ -264,18 +264,32 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
       </div>
 
       {/* Boutons de contrôle */}
-      <div className="flex items-center justify-center gap-4 mt-4">
+      <div className="flex items-center justify-center gap-6 mt-4 mb-10">
+        {/* Bouton précédent */}
         <button
           onClick={handlePrevious}
-          className="w-10 h-10 bg-gray-700 text-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-500"
+          className="w-20 h-12 flex items-center justify-center rounded-xl bg-gray-200 hover:bg-gray-300 shadow-md transition duration-300"
         >
-          &larr;
+          <Image
+            src="/icons/fleche.png" // Remplacez par le chemin correct
+            alt="Flèche gauche"
+            width={60}
+            height={40}
+            className="rotate-180"
+          />
         </button>
+
+        {/* Bouton suivant */}
         <button
           onClick={handleNext}
-          className="w-10 h-10 bg-gray-700 text-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-500"
+          className="w-20 h-12 flex items-center justify-center rounded-xl bg-gray-200 hover:bg-gray-300 shadow-md transition duration-300"
         >
-          &rarr;
+          <Image
+            src="/icons/fleche.png" // Remplacez par le chemin correct
+            alt="Flèche droite"
+            width={60}
+            height={40}
+          />
         </button>
       </div>
     </div>
