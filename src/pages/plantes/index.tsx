@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchPlantsData } from "../api/api";
-import { motion } from "framer-motion";
+import { motion, PanInfo } from "framer-motion"; // Import de PanInfo
 import Image from "next/image";
 
 type PlantData = {
@@ -68,6 +68,19 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
     );
   };
 
+  const handleDragEnd = (
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ) => {
+    if (info.offset.x > 100) {
+      // Glissement vers la droite
+      handlePrevious();
+    } else if (info.offset.x < -100) {
+      // Glissement vers la gauche
+      handleNext();
+    }
+  };
+
   const variants = {
     center: {
       scale: 1,
@@ -118,8 +131,11 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
               damping: 20,
               duration: 1.5,
             }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            onDragEnd={handleDragEnd}
           >
-            <div
+            <motion.div
               className="relative w-full h-full transition-transform duration-700"
               style={{
                 transformStyle: "preserve-3d",
@@ -135,11 +151,9 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                   transform: "rotateY(0deg)",
                   backfaceVisibility: "hidden",
                 }}
+                onClick={() => handleFlip(index)}
               >
-                <div
-                  className="relative bg-black rounded-[50px] overflow-hidden h-full w-full shadow-lg cursor-pointer"
-                  onClick={() => handleFlip(index)}
-                >
+                <div className="relative bg-black rounded-[50px] overflow-hidden h-full w-full shadow-lg cursor-pointer">
                   <Image
                     src={plant.image1}
                     alt={`${plant.name} front image`}
@@ -230,7 +244,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         ))}
       </div>
