@@ -216,7 +216,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                   <h2 className="text-2xl sm:text-3xl lg:text-4xl text-gold text-center mt-4 font-josefinslab font-bold">
                     {plant.name.toUpperCase()}
                   </h2>
-                  <h3 className="text-lg sm:text-xl lg:text-2xl text-center mb-6 italic">
+                  <h3 className="font-josefinslab text-lg sm:text-xl lg:text-2xl text-center mb-6 italic">
                     {plant.subtitle}
                   </h3>
 
