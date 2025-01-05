@@ -175,15 +175,15 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                   </div>
 
                   {/* Section texte et bouton */}
-                  <div className="bg-[url('/images/bg-vieux-papier2.webp')] p-4 text-center text-white rounded-b-[50px]">
-                    <h3 className="text-2xl text-black sm:text-3xl lg:text-4xl">
+                  <div className="bg-[url('/images/bg-vieux-papier2.webp')] p-2 sm:p-4 text-center text-white rounded-b-[30px]">
+                    <h3 className="text-lg font-josefinslab text-black sm:text-xl lg:text-2xl">
                       {plant.subtitle}
                     </h3>
-                    <h2 className="text-4xl font-josefinslab font-bold text-gold sm:text-3xl lg:text-4xl">
+                    <h2 className="text-2xl font-josefinslab font-bold text-gold sm:text-3xl lg:text-4xl">
                       {plant.name}
                     </h2>
                     <button
-                      className="mt-8 bg-grey text-white px-4 py-2 rounded-md font-semibold hover:bg-yellow-500"
+                      className="mt-2 mb-2 sm:mt-4 sm:mb-4 bg-grey text-white px-3 py-1 sm:px-4 sm:py-2 rounded-md font-semibold hover:bg-yellow-500 text-sm sm:text-base"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleFlip(index);
