@@ -73,7 +73,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
     info: PanInfo
   ) => {
     const velocityThreshold = 0.5; // Seuil de vélocité
-    const offsetThreshold = 50; // Seuil de déplacement
+    const offsetThreshold = 100; // Seuil de déplacement
 
     if (
       info.offset.x > offsetThreshold ||
