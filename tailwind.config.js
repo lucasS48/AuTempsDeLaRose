@@ -5,10 +5,12 @@ module.exports = {
     extend: {
       fontFamily: {
         josefinslab: ["'JosefinSlab'", "sans-serif"],
+        pinyonScript: ["'PinyonScript'", "sans-serif"],
       },
       colors: {
         gold: {
-          DEFAULT: "#e1a432",
+          DEFAULT: "#A9890A",
+          BIS: "#7B650B",
         },
         grey: {
           DEFAULT: "#292D32",

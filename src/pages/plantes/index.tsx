@@ -118,11 +118,11 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
   return (
     <div className="relative bg-white flex flex-col items-center justify-center overflow-hidden">
       {/* Carrousel */}
-      <div className="relative w-screen h-[80vh] sm:h-[70vh] flex items-center justify-center overflow-hidden mt-10 ">
+      <div className="relative w-screen h-[90vh] sm:h-[70vh] flex items-center justify-center overflow-hidden mt-10 ">
         {plants.map((plant, index) => (
           <motion.div
             key={plant.name}
-            className="absolute w-[90vw] h-[80vh] sm:w-[50vw] sm:h-[70vmin] perspective"
+            className="absolute w-[90vw] h-[90vh] sm:w-[50vw] sm:h-[70vmin] perspective"
             variants={variants}
             animate={
               index === currentIndex
@@ -162,35 +162,29 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                 }}
                 onClick={() => handleFlip(index)}
               >
-                <div className="relative bg-black rounded-[50px] overflow-hidden h-full w-full shadow-lg cursor-pointer flex flex-col">
+                <div className="relative bg-white border-[3px] border-gold rounded-[45px] overflow-hidden shadow-md flex flex-col items-center p-4 h-[80vh] w-full">
                   {/* Section image */}
-                  <div className="relative flex-grow">
+                  <div
+                    className="relative mt-4"
+                    style={{ width: "98%", height: "80%" }} // Taille de l'image à 90% de la largeur et 70% de la hauteur du parent
+                  >
                     <Image
                       src={plant.image1}
                       alt={`${plant.name} front image`}
                       layout="fill"
                       objectFit="cover"
-                      className="rounded-t-[50px]"
+                      className="rounded-[40px]"
                     />
                   </div>
 
-                  {/* Section texte et bouton */}
-                  <div className="bg-[url('/images/bg-vieux-papier2.webp')] p-2 sm:p-4 text-center text-white rounded-b-[30px]">
-                    <h3 className="text-lg font-josefinslab text-black sm:text-xl lg:text-2xl">
-                      {plant.subtitle}
-                    </h3>
-                    <h2 className="text-2xl font-josefinslab font-bold text-gold sm:text-3xl lg:text-4xl">
+                  {/* Section texte */}
+                  <div className="mt-6 text-center">
+                    <h2 className="text-4xl font-pinyonScript italic text-gold-BIS sm:text-5xl lg:text-6xl">
                       {plant.name}
                     </h2>
-                    <button
-                      className="mt-2 mb-2 sm:mt-4 sm:mb-4 bg-grey text-white px-3 py-1 sm:px-4 sm:py-2 rounded-md font-semibold hover:bg-yellow-500 text-sm sm:text-base"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleFlip(index);
-                      }}
-                    >
-                      Voir les conseils
-                    </button>
+                    <h3 className="text-lg font-josefinslab text-black sm:text-lg lg:text-xl">
+                      {plant.subtitle}
+                    </h3>
                   </div>
                 </div>
               </div>
@@ -204,57 +198,64 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                 }}
                 onClick={() => handleFlip(index)}
               >
-                <div
-                  className="relative bg-[url('/images/bg-vieux-papier.webp')] bg-cover bg-center rounded-[50px] border-[1px] border-grey overflow-hidden h-full w-full shadow-lg flex flex-col items-center p-6 sm:p-8 text-black cursor-pointer flipped-card"
-                  style={{
-                    fontSize: fontSizes[index],
-                    overflowY: "scroll",
-                    scrollbarWidth: "none",
-                    msOverflowStyle: "none",
-                  }}
-                >
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl text-gold text-center mt-4 font-josefinslab font-bold">
-                    {plant.name.toUpperCase()}
-                  </h2>
-                  <h3 className="font-josefinslab text-lg sm:text-xl lg:text-2xl text-center mb-6 italic">
-                    {plant.subtitle}
-                  </h3>
+                <div className="relative h-[80vh] w-full shadow-md flex flex-col items-center p-6 sm:p-8 text-black cursor-pointer flipped-card rounded-[45px] border-[3px] border-gold overflow-hidden">
+                  <div className="absolute inset-0 bg-[url('/images/bg-gold.jpg')] bg-cover bg-center"></div>
+                  <div className="absolute inset-0 bg-white bg-opacity-50"></div>
 
-                  <div className="grid grid-cols-1 gap-4 w-full">
-                    <div className="flex items-center gap-2">
-                      <Image
-                        src="/icons/soleil.png"
-                        alt="Sunlight Icon"
-                        width={48}
-                        height={48}
-                      />
-                      <p className="text-lg">{plant.sunlight}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Image
-                        src="/icons/arrosoir.png"
-                        alt="Watering Icon"
-                        width={48}
-                        height={48}
-                      />
-                      <p className="text-lg">{plant.watering}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Image
-                        src="/icons/floraison.png"
-                        alt="Blooming Icon"
-                        width={48}
-                        height={48}
-                      />
-                      <p className="text-lg">{plant.blooming}</p>
-                    </div>
-                  </div>
+                  <div
+                    className="relative z-10 font-josefinslab"
+                    style={{
+                      fontSize: fontSizes[index],
+                      overflowY: "scroll",
+                      scrollbarWidth: "none",
+                      msOverflowStyle: "none",
+                    }}
+                  >
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl text-gold-BIS text-center mt-4 ">
+                      {plant.name.toUpperCase()}
+                    </h2>
+                    <h3 className="font-josefinslab text-lg sm:text-xl lg:text-2xl text-center mb-6 italic">
+                      {plant.subtitle}
+                    </h3>
 
-                  <div className="bg-grey p-4 mt-6 rounded-xl shadow-sm">
-                    <h4 className="text-gold text-lg sm:text-xl lg:text-2xl font-bold mb-2">
-                      Conseils :
-                    </h4>
-                    <p className="text-white">{plant.tips}</p>
+                    <div className="grid grid-cols-1 gap-4 w-full">
+                      <div className="flex flex-col items-center">
+                        <Image
+                          src="/icons/soleil.png"
+                          alt="Sunlight Icon"
+                          width={48}
+                          height={48}
+                        />
+                        <p className="text-lg text-center">{plant.sunlight}</p>
+                      </div>
+
+                      <div className="flex flex-col items-center">
+                        <Image
+                          src="/icons/hydratation.png"
+                          alt="Watering Icon"
+                          width={48}
+                          height={48}
+                        />
+                        <p className="text-lg text-center">{plant.watering}</p>
+                      </div>
+
+                      <div className="flex flex-col items-center">
+                        <Image
+                          src="/icons/branche.png"
+                          alt="Blooming Icon"
+                          width={48}
+                          height={48}
+                        />
+                        <p className="text-lg text-center">{plant.blooming}</p>
+                      </div>
+                    </div>
+
+                    <div className="bg-gold-BIS bg-opacity-50 p-4 mt-6 rounded-[40px] shadow-sm">
+                      <h4 className="font-josefinslab text-white text-2xl text-center mb-2">
+                        Conseils :
+                      </h4>
+                      <p className="text-white">{plant.tips}</p>
+                    </div>
                   </div>
                 </div>
               </div>

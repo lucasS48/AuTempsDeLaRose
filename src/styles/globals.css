@@ -27,3 +27,10 @@
   font-weight: bold;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "PinyonScript";
+  src: url("/fonts/Pinyon_Script/PinyonScript-Regular.ttf") format("trueType");
+  font-weight: normal;
+  font-style: normal;
+}
