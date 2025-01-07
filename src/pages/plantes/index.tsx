@@ -74,19 +74,26 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
   ) => {
     const velocityThreshold = 0.5; // Seuil de vélocité
     const offsetThreshold = 200; // Seuil de déplacement
+    const verticalOffsetThreshold = 50; // Tolérance pour le mouvement vertical
 
+    // Vérifiez si le mouvement est principalement horizontal
     if (
-      info.offset.x > offsetThreshold ||
-      info.velocity.x > velocityThreshold
+      Math.abs(info.offset.x) >
+      Math.abs(info.offset.y) + verticalOffsetThreshold
     ) {
-      // Glissement vers la droite
-      handlePrevious();
-    } else if (
-      info.offset.x < -offsetThreshold ||
-      info.velocity.x < -velocityThreshold
-    ) {
-      // Glissement vers la gauche
-      handleNext();
+      if (
+        info.offset.x > offsetThreshold ||
+        info.velocity.x > velocityThreshold
+      ) {
+        // Glissement vers la droite
+        handlePrevious();
+      } else if (
+        info.offset.x < -offsetThreshold ||
+        info.velocity.x < -velocityThreshold
+      ) {
+        // Glissement vers la gauche
+        handleNext();
+      }
     }
   };
 
@@ -116,13 +123,13 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
   };
 
   return (
-    <div className="relative bg-white flex flex-col items-center justify-center overflow-hidden">
+    <div className="relative bg-white flex flex-col items-center justify-center overflow-hidden  bg-[url('/images/bg-fleur.jpg')] bg-cover bg-center">
       {/* Carrousel */}
-      <div className="relative w-screen h-[90vh] sm:h-[70vh] flex items-center justify-center overflow-hidden mt-10 ">
+      <div className="relative w-screen h-[80vh] sm:h-[90vh] flex items-center justify-center overflow-hidden mt-14 sm:mt-0">
         {plants.map((plant, index) => (
           <motion.div
             key={plant.name}
-            className="absolute w-[90vw] h-[90vh] sm:w-[50vw] sm:h-[70vmin] perspective"
+            className="absolute w-[90vw] h-[80vh] sm:w-[60vw] sm:h-[70vmin] perspective"
             variants={variants}
             animate={
               index === currentIndex
@@ -165,7 +172,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                 <div className="relative bg-white border-[3px] border-gold rounded-[45px] overflow-hidden shadow-md flex flex-col items-center p-4 h-[80vh] w-full">
                   {/* Section image */}
                   <div
-                    className="relative mt-4"
+                    className="relative mt-6"
                     style={{ width: "98%", height: "80%" }} // Taille de l'image à 90% de la largeur et 70% de la hauteur du parent
                   >
                     <Image
@@ -183,7 +190,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                       {plant.name}
                     </h2>
                     <h3 className="text-lg font-josefinslab text-black sm:text-lg lg:text-xl">
-                      {plant.subtitle}
+                      - {plant.subtitle} -
                     </h3>
                   </div>
                 </div>
@@ -191,17 +198,14 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
 
               {/* Face arrière */}
               <div
-                className="absolute w-full h-full backface-hidden"
+                className="absolute w-full h-full backface-hidden flex justify-center"
                 style={{
                   transform: "rotateY(180deg)",
                   backfaceVisibility: "hidden",
                 }}
                 onClick={() => handleFlip(index)}
               >
-                <div className="relative h-[80vh] w-full shadow-md flex flex-col items-center p-6 sm:p-8 text-black cursor-pointer flipped-card rounded-[45px] border-[3px] border-gold overflow-hidden">
-                  <div className="absolute inset-0 bg-[url('/images/bg-gold.jpg')] bg-cover bg-center"></div>
-                  <div className="absolute inset-0 bg-white bg-opacity-50"></div>
-
+                <div className="relative h-[80vh] w-[85vw] shadow-md flex flex-col items-center p-5 sm:p-8 text-black cursor-pointer flipped-card rounded-[45px] border-[3px] border-gold-BIS overflow-hidden bg-beige">
                   <div
                     className="relative z-10 font-josefinslab"
                     style={{
@@ -215,7 +219,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                       {plant.name.toUpperCase()}
                     </h2>
                     <h3 className="font-josefinslab text-lg sm:text-xl lg:text-2xl text-center mb-6 italic">
-                      {plant.subtitle}
+                      - {plant.subtitle} -
                     </h3>
 
                     <div className="grid grid-cols-1 gap-4 w-full">
@@ -226,7 +230,9 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                           width={48}
                           height={48}
                         />
-                        <p className="text-lg text-center">{plant.sunlight}</p>
+                        <p className="text-base text-center">
+                          {plant.sunlight}
+                        </p>
                       </div>
 
                       <div className="flex flex-col items-center">
@@ -236,7 +242,9 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                           width={48}
                           height={48}
                         />
-                        <p className="text-lg text-center">{plant.watering}</p>
+                        <p className="text-base text-center">
+                          {plant.watering}
+                        </p>
                       </div>
 
                       <div className="flex flex-col items-center">
@@ -246,11 +254,13 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                           width={48}
                           height={48}
                         />
-                        <p className="text-lg text-center">{plant.blooming}</p>
+                        <p className="text-base text-center">
+                          {plant.blooming}
+                        </p>
                       </div>
                     </div>
 
-                    <div className="bg-gold-BIS bg-opacity-50 p-4 mt-6 rounded-[40px] shadow-sm">
+                    <div className="bg-beige-BIS p-4 mt-6 rounded-[40px] shadow-sm border-gold-BIS border-[2px]">
                       <h4 className="font-josefinslab text-white text-2xl text-center mb-2">
                         Conseils :
                       </h4>
@@ -265,31 +275,37 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
       </div>
 
       {/* Boutons de contrôle */}
-      <div className="flex items-center justify-center gap-6 mt-4 mb-10">
+      <div className="flex items-center justify-center gap-6 mb-10 mt-6">
         {/* Bouton précédent */}
         <button
           onClick={handlePrevious}
-          className="w-20 h-12 flex items-center justify-center rounded-xl bg-gray-200 hover:bg-gray-300 shadow-md transition duration-300"
+          className="w-20 h-10 flex items-center justify-center border-[1px] border-black rounded-[40px] bg-beige hover:bg-beige-BIS shadow-md transition duration-300"
         >
           <Image
-            src="/icons/fleche.png" // Remplacez par le chemin correct
-            alt="Flèche gauche"
-            width={60}
-            height={40}
+            src="/icons/thumbnail_fleche-fine.png" // Remplacez par le chemin correct
+            alt="Flèche droite"
+            width={40}
+            height={30}
             className="rotate-180"
           />
         </button>
 
+        <Image
+          src="/icons/rose.png" // Remplacez par le chemin correct
+          alt="Flèche droite"
+          width={40}
+          height={30}
+        />
         {/* Bouton suivant */}
         <button
           onClick={handleNext}
-          className="w-20 h-12 flex items-center justify-center rounded-xl bg-gray-200 hover:bg-gray-300 shadow-md transition duration-300"
+          className="w-20 h-10 flex items-center justify-center border-[1px] border-black rounded-[40px] bg-beige hover:bg-beige-BIS shadow-md transition duration-300"
         >
           <Image
-            src="/icons/fleche.png" // Remplacez par le chemin correct
+            src="/icons/thumbnail_fleche-fine.png" // Remplacez par le chemin correct
             alt="Flèche droite"
-            width={60}
-            height={40}
+            width={40}
+            height={30}
           />
         </button>
       </div>

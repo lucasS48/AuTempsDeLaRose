@@ -15,6 +15,10 @@ module.exports = {
         grey: {
           DEFAULT: "#292D32",
         },
+        beige: {
+          DEFAULT: "#EADECE",
+          BIS: "#B9AB99",
+        },
       },
     },
   },
