@@ -10,7 +10,7 @@ const Footer = () => {
           <div>
             <h3 className="section-title text-gold">Contact</h3>
             <p className="text-sm mb-6">
-              Besoin d'aide ou d'un conseil ? Passez nous voir à la boutique ou
+              Besoin d&apos;aide ou d&apos;un conseil ? Passez nous voir à la boutique ou
               contactez-nous par téléphone ou email. Nous serons ravis de vous
               aider !
             </p>
@@ -80,7 +80,7 @@ const Footer = () => {
           <div>
             <h3 className="section-title text-gold">Newsletter</h3>
             <h4 className="text-sm mb-4 font-bold">
-              3 bonnes raisons de s'abonner :
+              3 bonnes raisons de s&apos;abonner :
             </h4>
             <ul className="list-disc pl-6 text-sm mb-6 space-y-2">
               <li>Recevez toutes nos offres et nos bons plans.</li>
