@@ -123,7 +123,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
   };
 
   return (
-    <div className="relative bg-white flex flex-col items-center justify-center overflow-hidden  bg-[url('/images/bg-fleur.jpg')] bg-cover bg-center">
+    <div className="relative bg-white flex flex-col items-center justify-center overflow-hidden  bg-[url('/images/bg-fleur.webp')] bg-cover bg-center">
       {/* Carrousel */}
       <div className="relative w-screen h-[80vh] sm:h-[90vh] flex items-center justify-center overflow-hidden mt-14 sm:mt-0">
         {plants.map((plant, index) => (
@@ -225,7 +225,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                     <div className="grid grid-cols-1 gap-4 w-full">
                       <div className="flex flex-col items-center">
                         <Image
-                          src="/icons/soleil.png"
+                          src="/icons/soleil.webp"
                           alt="Sunlight Icon"
                           width={48}
                           height={48}
@@ -237,7 +237,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
 
                       <div className="flex flex-col items-center">
                         <Image
-                          src="/icons/hydratation.png"
+                          src="/icons/hydratation.webp"
                           alt="Watering Icon"
                           width={48}
                           height={48}
@@ -249,7 +249,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
 
                       <div className="flex flex-col items-center">
                         <Image
-                          src="/icons/branche.png"
+                          src="/icons/branche.webp"
                           alt="Blooming Icon"
                           width={48}
                           height={48}
@@ -282,7 +282,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
           className="w-20 h-10 flex items-center justify-center border-[1px] border-black rounded-[40px] bg-beige hover:bg-beige-BIS shadow-md transition duration-300"
         >
           <Image
-            src="/icons/thumbnail_fleche-fine.png" // Remplacez par le chemin correct
+            src="/icons/thumbnail_fleche-fine.webp" // Remplacez par le chemin correct
             alt="Flèche droite"
             width={40}
             height={30}
@@ -291,7 +291,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
         </button>
 
         <Image
-          src="/icons/rose.png" // Remplacez par le chemin correct
+          src="/icons/rose.webp" // Remplacez par le chemin correct
           alt="Flèche droite"
           width={40}
           height={30}
@@ -302,7 +302,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
           className="w-20 h-10 flex items-center justify-center border-[1px] border-black rounded-[40px] bg-beige hover:bg-beige-BIS shadow-md transition duration-300"
         >
           <Image
-            src="/icons/thumbnail_fleche-fine.png" // Remplacez par le chemin correct
+            src="/icons/thumbnail_fleche-fine.webp" // Remplacez par le chemin correct
             alt="Flèche droite"
             width={40}
             height={30}

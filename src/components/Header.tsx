@@ -17,7 +17,7 @@ const Header = () => {
         {/* Logo à droite */}
         <div className="flex-shrink-0">
           <Image
-            src="/icons/rose.png"
+            src="/icons/rose.webp"
             alt="Logo de la boutique"
             width={40}
             height={40}
