@@ -15,7 +15,7 @@ type PlantData = {
 
 // Fonction pour générer l'URL des images à partir de Google Drive
 function getDriveImageURL(fileName: string): string {
-  if (!fileName) return "/images/placeholder-image.jpg"; // Image par défaut
+  if (!fileName) return "/images/placeholder-image.webp"; // Image par défaut
   return `https://drive.google.com/uc?id=${fileName}`;
 }
 
