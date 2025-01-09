@@ -4,25 +4,26 @@ import Image from "next/image";
 const Header = () => {
   return (
     <header className="bg-white text-white py-4 shadow-lg fixed top-0 w-full z-50">
-      <div className="container mx-auto px-4 flex items-center relative">
-        {/* Logo à droite */}
-        <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-          <Image
-            src="/images/rose-logo.webp"
-            alt="Logo de la boutique"
-            width={60} // Set width according to your design
-            height={40} // Set height according to your design
-            priority // Optimize for LCP by loading the logo eagerly
-          />
-        </div>
+      <div className="container mx-auto px-4 flex items-center justify-between relative">
+        {/* Espace réservé pour équilibrer le titre */}
+        <div className="w-10 h-10" />
 
         {/* Nom de la boutique centré */}
-        <div className="flex-1 text-center">
-          <Link href="/" className="text-xl font-bold">
-            <span className="text-black font-josefinslab text-2xl">
-              Au Temps de la Rose
-            </span>
-          </Link>
+        <div className="absolute left-1/2 transform -translate-x-1/2">
+          <span className="text-black font-josefinslab text-xl leading-tight text-center block sm:text-lg break-words">
+            Au Temps<br />de la Rose
+          </span>
+        </div>
+
+        {/* Logo à droite */}
+        <div className="flex-shrink-0">
+          <Image
+            src="/icons/rose.png"
+            alt="Logo de la boutique"
+            width={40}
+            height={40}
+            priority
+          />
         </div>
       </div>
     </header>
