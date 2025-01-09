@@ -6,6 +6,15 @@ const nextConfig: NextConfig = {
 };
 
 module.exports = {
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/plantes',
+        permanent: true, // Définit une redirection permanente (HTTP 308)
+      },
+    ];
+  },
   images: {
     domains: ["drive.google.com"],
   },
