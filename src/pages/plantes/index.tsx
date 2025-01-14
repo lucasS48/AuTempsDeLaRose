@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { fetchPlantsData } from "../api/api";
 import { motion, PanInfo } from "framer-motion";
 import Image from "next/image";
@@ -15,11 +16,22 @@ type PlantData = {
 };
 
 export default function Carousel({ plants }: { plants: PlantData[] }) {
+  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [flippedStates, setFlippedStates] = useState<boolean[]>([]);
   const [fontSizes, setFontSizes] = useState<string[]>([]);
 
   useEffect(() => {
+    const plantSlug = router.query.plant as string;
+    if (plantSlug) {
+      const index = plants.findIndex(
+        (plant) => plant.name.toLowerCase().replace(/ /g, "-") === plantSlug
+      );
+      if (index !== -1) {
+        setCurrentIndex(index);
+      }
+    }
+    
     setFlippedStates(plants.map(() => false));
 
     const calculateFontSizes = () => {
@@ -52,7 +64,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
     calculateFontSizes();
     window.addEventListener("resize", calculateFontSizes);
     return () => window.removeEventListener("resize", calculateFontSizes);
-  }, [plants]);
+  }, [router.query.plant, plants]);
 
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % plants.length);
