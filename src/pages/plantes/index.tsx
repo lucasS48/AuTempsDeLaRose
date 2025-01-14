@@ -326,5 +326,9 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
 
 export async function getStaticProps() {
   const plants = (await fetchPlantsData()) || [];
-  return { props: { plants } };
+  return { 
+    props: { plants },
+    revalidate: 60, // Temps en secondes avant la regénération
+  };
 }
+
