@@ -5,6 +5,8 @@ import Header from "@/components/Header";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   return (
@@ -17,6 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </div>
 
       <Footer />
+      <SpeedInsights />
     </>
   );
 }
