@@ -11,8 +11,7 @@ type PlantData = {
   watering: string;
   blooming: string;
   tips: string;
-  image1: string; // ID Google Drive
-  image2: string; // ID Google Drive
+  image: string; // ID Google Drive
 };
 
 export default function Carousel({ plants }: { plants: PlantData[] }) {
@@ -31,7 +30,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
         setCurrentIndex(index);
       }
     }
-    
+
     setFlippedStates(plants.map(() => false));
 
     const calculateFontSizes = () => {
@@ -188,7 +187,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                     style={{ width: "98%", height: "80%" }} // Taille de l'image à 90% de la largeur et 70% de la hauteur du parent
                   >
                     <Image
-                      src={plant.image1}
+                      src={plant.image}
                       alt={`${plant.name} front image`}
                       layout="fill"
                       objectFit="cover"

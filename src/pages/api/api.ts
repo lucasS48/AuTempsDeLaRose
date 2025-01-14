@@ -9,8 +9,7 @@ type PlantData = {
   watering: string; // Arrosage
   blooming: string; // Floraison
   tips: string; // Conseils
-  image1: string; // Image1
-  image2: string; // Image2
+  image: string; // Image
 };
 
 // Fonction pour générer l'URL des images à partir de Google Drive
@@ -51,8 +50,7 @@ export async function fetchPlantsData(): Promise<PlantData[]> {
       watering: plant.arrosage || "Pas d'informations d'arrosage.", // Arrosage
       blooming: plant.floraison || "Pas de détails sur la floraison.", // Floraison
       tips: plant.conseils || "Aucun conseil fourni.", // Conseils
-      image1: getDriveImageURL(plant.image1 || ""), // Image1
-      image2: getDriveImageURL(plant.image2 || ""), // Image2
+      image: getDriveImageURL(plant.image || ""), // Image1
     };
   });
 }
