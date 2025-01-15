@@ -141,7 +141,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
           {plants.map((plant, index) => (
             <motion.div
               key={plant.name}
-              className="absolute w-[90vw] h-[80vh] sm:w-[35vw] sm:h-[90vmin] perspective"
+              className="absolute w-[90vw] h-[80vh] sm:w-[35vw] sm:h-[70vmin] perspective"
               variants={variants}
               animate={
                 index === currentIndex
