@@ -88,9 +88,13 @@ const ContactInfo = () => {
         </div>
       </div>
 
-      {/* Placeholder pour l'image */}
-      <div className="mt-14 bg-gray-200 h-48 sm:h-96 flex items-center justify-center lg:col-span-2">
-        <p className="text-gray-500">Image placeholder</p>
+      {/* Image de la boutique */}
+      <div className="mt-14">
+        <img
+          src="/images/boutique.jpg"
+          alt="Boutique Au temps de la Rose"
+          className="w-full h-48 sm:h-96 object-cover"
+        />
       </div>
     </div>
   );
