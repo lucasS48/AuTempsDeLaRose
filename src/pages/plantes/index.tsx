@@ -134,201 +134,202 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
   };
 
   return (
-    <div className="relative bg-white flex flex-col items-center justify-center overflow-hidden  bg-[url('/images/bg-fleur.webp')] bg-cover bg-center">
-      {/* Carrousel */}
-      <div className="relative w-screen h-[80vh] sm:h-[90vh] flex items-center justify-center overflow-hidden mt-14 sm:mt-0">
-        {plants.map((plant, index) => (
-          <motion.div
-            key={plant.name}
-            className="absolute w-[90vw] h-[80vh] sm:w-[35vw] sm:h-[70vmin] perspective"
-            variants={variants}
-            animate={
-              index === currentIndex
-                ? "center"
-                : index === (currentIndex - 1 + plants.length) % plants.length
-                ? "left"
-                : index === (currentIndex + 1) % plants.length
-                ? "right"
-                : "hidden"
-            }
-            initial="hidden"
-            transition={{
-              type: "spring",
-              stiffness: 120,
-              damping: 20,
-              duration: 1.5,
-            }}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            onDragEnd={handleDragEnd}
-          >
+    <>
+      <div className="relative bg-white flex flex-col items-center justify-center overflow-hidden  bg-[url('/images/bg-fleur.webp')] bg-cover bg-center">
+        {/* Carrousel */}
+        <div className="relative w-screen h-[80vh] sm:h-[90vh] flex items-center justify-center overflow-hidden mt-10 sm:mt-0">
+          {plants.map((plant, index) => (
             <motion.div
-              className="relative w-full h-full transition-transform duration-700"
-              style={{
-                transformStyle: "preserve-3d",
-                transform: flippedStates[index]
-                  ? "rotateY(180deg)"
-                  : "rotateY(0deg)",
+              key={plant.name}
+              className="absolute w-[90vw] h-[80vh] sm:w-[35vw] sm:h-[90vmin] perspective"
+              variants={variants}
+              animate={
+                index === currentIndex
+                  ? "center"
+                  : index === (currentIndex - 1 + plants.length) % plants.length
+                  ? "left"
+                  : index === (currentIndex + 1) % plants.length
+                  ? "right"
+                  : "hidden"
+              }
+              initial="hidden"
+              transition={{
+                type: "spring",
+                stiffness: 120,
+                damping: 20,
+                duration: 1.5,
               }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              onDragEnd={handleDragEnd}
             >
-              {/* Face avant */}
-              <div
-                className="absolute w-full h-full backface-hidden"
+              <motion.div
+                className="relative w-full h-full transition-transform duration-700"
                 style={{
-                  transform: "rotateY(0deg)",
-                  backfaceVisibility: "hidden",
+                  transformStyle: "preserve-3d",
+                  transform: flippedStates[index]
+                    ? "rotateY(180deg)"
+                    : "rotateY(0deg)",
                 }}
-                onClick={() => handleFlip(index)}
               >
-                <div className="relative bg-white border-[3px] border-gold rounded-[45px] overflow-hidden shadow-md flex flex-col items-center p-4 h-[80vh] w-full">
-                  {/* Section image */}
-                  <div
-                    className="relative mt-6"
-                    style={{ width: "98%", height: "80%" }} // Taille de l'image à 90% de la largeur et 70% de la hauteur du parent
-                  >
-                    <Image
-                      src={plant.image}
-                      alt={`${plant.name} front image`}
-                      layout="fill"
-                      objectFit="cover"
-                      className="rounded-[40px]"
-                    />
-                  </div>
-
-                  {/* Section texte */}
-                  <div className="mt-6 text-center">
-                    <h2 className="text-4xl font-pinyonScript italic text-gold-BIS sm:text-5xl lg:text-6xl">
-                      {plant.name}
-                    </h2>
-                    <h3 className="text-lg font-josefinslab text-black sm:text-lg lg:text-xl">
-                      - {plant.subtitle} -
-                    </h3>
-                  </div>
-                </div>
-              </div>
-
-              {/* Face arrière */}
-              <div
-                className="absolute w-full h-full backface-hidden flex justify-center"
-                style={{
-                  transform: "rotateY(180deg)",
-                  backfaceVisibility: "hidden",
-                }}
-                onClick={() => handleFlip(index)}
-              >
-                <div className="relative h-[80vh] w-[85vw] shadow-md flex flex-col items-center p-5 sm:p-8 text-black cursor-pointer flipped-card rounded-[45px] border-[3px] border-gold-BIS overflow-hidden bg-beige">
-                  <div
-                    className="relative z-10 font-josefinslab"
-                    style={{
-                      fontSize: fontSizes[index],
-                      overflowY: "scroll",
-                      scrollbarWidth: "none",
-                      msOverflowStyle: "none",
-                    }}
-                  >
-                    <h2 className="text-2xl sm:text-3xl lg:text-4xl text-gold-BIS text-center mt-4 ">
-                      {plant.name.toUpperCase()}
-                    </h2>
-                    <h3 className="font-josefinslab text-lg sm:text-xl lg:text-2xl text-center mb-6 italic">
-                      - {plant.subtitle} -
-                    </h3>
-
-                    <div className="grid grid-cols-1 gap-4 w-full">
-                      <div className="flex flex-col items-center">
-                        <Image
-                          src="/icons/soleil.webp"
-                          alt="Sunlight Icon"
-                          width={48}
-                          height={48}
-                        />
-                        <p className="text-base text-center">
-                          {plant.sunlight}
-                        </p>
-                      </div>
-
-                      <div className="flex flex-col items-center">
-                        <Image
-                          src="/icons/hydratation.webp"
-                          alt="Watering Icon"
-                          width={48}
-                          height={48}
-                        />
-                        <p className="text-base text-center">
-                          {plant.watering}
-                        </p>
-                      </div>
-
-                      <div className="flex flex-col items-center">
-                        <Image
-                          src="/icons/branche.webp"
-                          alt="Blooming Icon"
-                          width={48}
-                          height={48}
-                        />
-                        <p className="text-base text-center">
-                          {plant.blooming}
-                        </p>
-                      </div>
+                {/* Face avant */}
+                <div
+                  className="absolute w-full h-full backface-hidden flex justify-center"
+                  style={{
+                    transform: "rotateY(0deg)",
+                    backfaceVisibility: "hidden",
+                  }}
+                  onClick={() => handleFlip(index)}
+                >
+                  <div className="relative h-[80vh] w-[85vw] shadow-md flex flex-col items-center bg-white border-[3px] border-gold rounded-[45px] overflow-hidden   p-4 ">
+                    {/* Section image */}
+                    <div
+                      className="relative mt-6"
+                      style={{ width: "98%", height: "80%" }} // Taille de l'image à 90% de la largeur et 70% de la hauteur du parent
+                    >
+                      <Image
+                        src={plant.image}
+                        alt={`${plant.name} front image`}
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-[40px]"
+                      />
                     </div>
 
-                    <div className="bg-beige-BIS p-4 mt-6 rounded-[40px] shadow-sm border-gold-BIS border-[2px]">
-                      <h4 className="font-josefinslab text-white text-2xl text-center mb-2">
-                        Conseils :
-                      </h4>
-                      <p className="text-white">{plant.tips}</p>
+                    {/* Section texte */}
+                    <div className="mt-6 text-center">
+                      <h2 className="text-4xl font-pinyonScript italic text-gold-BIS sm:text-5xl lg:text-6xl">
+                        {plant.name}
+                      </h2>
+                      <h3 className="text-lg font-josefinslab text-black sm:text-lg lg:text-xl">
+                        - {plant.subtitle} -
+                      </h3>
                     </div>
                   </div>
                 </div>
-              </div>
+
+                {/* Face arrière */}
+                <div
+                  className="absolute w-full h-full backface-hidden flex justify-center"
+                  style={{
+                    transform: "rotateY(180deg)",
+                    backfaceVisibility: "hidden",
+                  }}
+                  onClick={() => handleFlip(index)}
+                >
+                  <div className="relative h-[80vh] w-[85vw] shadow-md flex flex-col items-center p-5 sm:p-8 text-black cursor-pointer flipped-card rounded-[45px] border-[3px] border-gold-BIS overflow-hidden bg-beige">
+                    <div
+                      className="relative z-10 font-josefinslab"
+                      style={{
+                        fontSize: fontSizes[index],
+                        overflowY: "scroll",
+                        scrollbarWidth: "none",
+                        msOverflowStyle: "none",
+                      }}
+                    >
+                      <h2 className="text-2xl sm:text-3xl lg:text-4xl text-gold-BIS text-center mt-4 ">
+                        {plant.name.toUpperCase()}
+                      </h2>
+                      <h3 className="font-josefinslab text-lg sm:text-xl lg:text-2xl text-center mb-6 italic">
+                        - {plant.subtitle} -
+                      </h3>
+
+                      <div className="grid grid-cols-1 gap-4 w-full">
+                        <div className="flex flex-col items-center">
+                          <Image
+                            src="/icons/soleil.webp"
+                            alt="Sunlight Icon"
+                            width={48}
+                            height={48}
+                          />
+                          <p className="text-base text-center">
+                            {plant.sunlight}
+                          </p>
+                        </div>
+
+                        <div className="flex flex-col items-center">
+                          <Image
+                            src="/icons/hydratation.webp"
+                            alt="Watering Icon"
+                            width={48}
+                            height={48}
+                          />
+                          <p className="text-base text-center">
+                            {plant.watering}
+                          </p>
+                        </div>
+
+                        <div className="flex flex-col items-center">
+                          <Image
+                            src="/icons/branche.webp"
+                            alt="Blooming Icon"
+                            width={48}
+                            height={48}
+                          />
+                          <p className="text-base text-center">
+                            {plant.blooming}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="bg-beige-BIS p-4 mt-6 rounded-[40px] shadow-sm border-gold-BIS border-[2px]">
+                        <h4 className="font-josefinslab text-white text-2xl text-center mb-2">
+                          Conseils :
+                        </h4>
+                        <p className="text-white">{plant.tips}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {/* Boutons de contrôle */}
-      <div className="flex items-center justify-center gap-6 mb-10 mt-6">
-        {/* Bouton précédent */}
-        <button
-          onClick={handlePrevious}
-          className="w-20 h-10 flex items-center justify-center border-[1px] border-black rounded-[40px] bg-beige hover:bg-beige-BIS shadow-md transition duration-300"
-        >
-          <Image
-            src="/icons/thumbnail_fleche-fine.webp" // Remplacez par le chemin correct
-            alt="Flèche droite"
-            width={40}
-            height={30}
-            className="rotate-180"
-          />
-        </button>
+        {/* Boutons de contrôle */}
+        <div className="flex items-center justify-center gap-6 mb-10 mt-6">
+          {/* Bouton précédent */}
+          <button
+            onClick={handlePrevious}
+            className="w-20 h-10 flex items-center justify-center border-[1px] border-black rounded-[40px] bg-beige hover:bg-beige-BIS shadow-md transition duration-300"
+          >
+            <Image
+              src="/icons/thumbnail_fleche-fine.webp" // Remplacez par le chemin correct
+              alt="Flèche droite"
+              width={40}
+              height={30}
+              className="rotate-180"
+            />
+          </button>
 
-        <Image
-          src="/icons/rose.webp" // Remplacez par le chemin correct
-          alt="Flèche droite"
-          width={40}
-          height={30}
-        />
-        {/* Bouton suivant */}
-        <button
-          onClick={handleNext}
-          className="w-20 h-10 flex items-center justify-center border-[1px] border-black rounded-[40px] bg-beige hover:bg-beige-BIS shadow-md transition duration-300"
-        >
           <Image
-            src="/icons/thumbnail_fleche-fine.webp" // Remplacez par le chemin correct
+            src="/icons/rose.webp" // Remplacez par le chemin correct
             alt="Flèche droite"
             width={40}
             height={30}
           />
-        </button>
+          {/* Bouton suivant */}
+          <button
+            onClick={handleNext}
+            className="w-20 h-10 flex items-center justify-center border-[1px] border-black rounded-[40px] bg-beige hover:bg-beige-BIS shadow-md transition duration-300"
+          >
+            <Image
+              src="/icons/thumbnail_fleche-fine.webp" // Remplacez par le chemin correct
+              alt="Flèche droite"
+              width={40}
+              height={30}
+            />
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export async function getStaticProps() {
   const plants = (await fetchPlantsData()) || [];
-  return { 
+  return {
     props: { plants },
     revalidate: 60, // Temps en secondes avant la regénération
   };
 }
-

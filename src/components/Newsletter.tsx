@@ -33,10 +33,9 @@ const Newsletter = () => {
         </button>
       </form>
       <p className="text-xs mt-4 text-center">
-        By clicking Sign Up you&apos;re confirming that you agree with our{" "}
-        <a href="#" className="underline text-gold">
-          Terms and Conditions.
-        </a>
+        En vous inscrivant, vous acceptez de recevoir des e-mails réguliers de
+        notre part. Vous pouvez vous désabonner à tout moment en suivant le lien
+        présent dans nos e-mails.
       </p>
     </div>
   );
