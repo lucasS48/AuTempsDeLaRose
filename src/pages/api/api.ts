@@ -1,5 +1,8 @@
-const SHEET_ID = "166E6BMrrmKF5TaoksTH1Es6mijsezrWoRDE5ag1zUOo"; // Remplacez par l'ID de votre Google Sheet
-const API_KEY = "AIzaSyDSRIRF1QzXiOMqutixiGmcbJAg44JYOp8"; // Remplacez par votre clé API Google
+const SHEET_ID = process.env.SHEET_ID!; // Remplacez par l'ID de votre Google Sheet
+const API_KEY = process.env.GOOGLE_API_KEY!; // Remplacez par votre clé API Google
+
+console.log("SHEET_ID:", process.env.SHEET_ID);
+console.log("GOOGLE_API_KEY:", process.env.GOOGLE_API_KEY);
 
 // Type des données d'une plante
 type PlantData = {
@@ -25,7 +28,10 @@ export async function fetchPlantsData(): Promise<PlantData[]> {
   const data = await res.json();
 
   if (!data.values || data.error) {
-    console.warn("Erreur ou aucune donnée trouvée :", data.error || "Plage vide.");
+    console.warn(
+      "Erreur ou aucune donnée trouvée :",
+      data.error || "Plage vide."
+    );
     return [];
   }
 
