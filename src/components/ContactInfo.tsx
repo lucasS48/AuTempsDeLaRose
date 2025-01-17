@@ -6,6 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
+import Image from "next/image";
 
 const ContactInfo = () => {
   return (
@@ -90,10 +91,13 @@ const ContactInfo = () => {
 
       {/* Image de la boutique */}
       <div className="mt-14">
-        <img
+        <Image
           src="/images/boutique.jpg"
           alt="Boutique Au temps de la Rose"
-          className="w-full h-48 sm:h-96 object-cover"
+          width={800}
+          height={600}
+          style={{ objectFit: "cover" }}
+          className="w-full h-48 sm:h-96"
         />
       </div>
     </div>

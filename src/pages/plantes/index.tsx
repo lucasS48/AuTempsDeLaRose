@@ -4,15 +4,7 @@ import { fetchPlantsData } from "../api/api";
 import { motion, PanInfo } from "framer-motion";
 import Image from "next/image";
 
-type PlantData = {
-  name: string;
-  subtitle: string;
-  sunlight: string;
-  watering: string;
-  blooming: string;
-  tips: string;
-  image: string; // ID Google Drive
-};
+import { PlantData } from "@/components/types";
 
 export default function Carousel({ plants }: { plants: PlantData[] }) {
   const router = useRouter();
@@ -190,8 +182,8 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                       <Image
                         src={plant.image}
                         alt={`${plant.name} front image`}
-                        layout="fill"
-                        objectFit="cover"
+                        fill
+                        style={{ objectFit: "cover" }}
                         className="rounded-[40px]"
                       />
                     </div>

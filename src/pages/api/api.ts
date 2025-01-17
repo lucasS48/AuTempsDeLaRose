@@ -1,19 +1,7 @@
 const SHEET_ID = process.env.SHEET_ID!; // Remplacez par l'ID de votre Google Sheet
 const API_KEY = process.env.GOOGLE_API_KEY!; // Remplacez par votre clé API Google
 
-console.log("SHEET_ID:", process.env.SHEET_ID);
-console.log("GOOGLE_API_KEY:", process.env.GOOGLE_API_KEY);
-
-// Type des données d'une plante
-type PlantData = {
-  name: string; // Nom
-  subtitle: string; // Sous titre
-  sunlight: string; // Ensoleillement
-  watering: string; // Arrosage
-  blooming: string; // Floraison
-  tips: string; // Conseils
-  image: string; // Image
-};
+import { PlantData } from "@/components/types";
 
 // Fonction pour générer l'URL des images à partir de Google Drive
 function getDriveImageURL(fileName: string): string {
