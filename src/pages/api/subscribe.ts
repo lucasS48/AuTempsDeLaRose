@@ -3,7 +3,7 @@ import axios from "axios";
 
 const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
 const MAILCHIMP_LIST_ID = process.env.MAILCHIMP_LIST_ID;
-const MAILCHIMP_API_URL = `https://us11.api.mailchimp.com/3.0/lists/${MAILCHIMP_LIST_ID}/members`;
+const MAILCHIMP_API_URL = `https://us10.api.mailchimp.com/3.0/lists/${MAILCHIMP_LIST_ID}/members`;
 
 const subscribeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
