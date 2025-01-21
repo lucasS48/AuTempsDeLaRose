@@ -58,12 +58,15 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
   }, [router.query.plant, plants]);
 
   const handleNext = () => {
+    setFlippedStates(plants.map(() => false)); // Réinitialise toutes les cartes
     setCurrentIndex((prev) => (prev + 1) % plants.length);
   };
-
+  
   const handlePrevious = () => {
+    setFlippedStates(plants.map(() => false)); // Réinitialise toutes les cartes
     setCurrentIndex((prev) => (prev - 1 + plants.length) % plants.length);
   };
+  
 
   const handleFlip = (index: number) => {
     setFlippedStates((prev) =>
@@ -190,7 +193,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
 
                     {/* Section texte */}
                     <div className="mt-6 text-center">
-                      <h2 className="text-4xl font-pinyonScript italic text-gold-BIS sm:text-5xl lg:text-6xl">
+                      <h2 className="text-4xl font-tangerine italic text-gold-BIS sm:text-5xl lg:text-6xl">
                         {plant.name}
                       </h2>
                       <h3 className="text-lg font-josefinslab text-black sm:text-lg lg:text-xl">

@@ -35,6 +35,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Tangerine";
+  src: url("/fonts/Tangerine/Tangerine-Regular.ttf") format("trueType");
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 .section-title {
   @apply text-xl font-bold mb-4 border-b border-gold pb-2;

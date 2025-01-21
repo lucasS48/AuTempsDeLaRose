@@ -6,6 +6,7 @@ module.exports = {
       fontFamily: {
         josefinslab: ["'JosefinSlab'", "sans-serif"],
         pinyonScript: ["'PinyonScript'", "sans-serif"],
+        tangerine: ["'Tangerine'", "sans-serif"],
       },
       colors: {
         gold: {
