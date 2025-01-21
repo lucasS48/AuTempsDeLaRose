@@ -176,11 +176,11 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                   }}
                   onClick={() => handleFlip(index)}
                 >
-                  <div className="relative h-[80vh] w-[85vw] shadow-md flex flex-col items-center bg-white border-[3px] border-gold rounded-[45px] overflow-hidden   p-4 ">
+                  <div className="relative h-[80vh] w-[85vw] shadow-md flex flex-col items-center bg-white border-[3px] border-gold rounded-[45px] overflow-hidden p-4 ">
                     {/* Section image */}
                     <div
                       className="relative mt-6"
-                      style={{ width: "98%", height: "80%" }} // Taille de l'image à 90% de la largeur et 70% de la hauteur du parent
+                      style={{ width: "98%", height: "90%" }} // Taille de l'image à 90% de la largeur et 70% de la hauteur du parent
                     >
                       <Image
                         src={plant.image}
@@ -192,8 +192,8 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                     </div>
 
                     {/* Section texte */}
-                    <div className="mt-6 text-center">
-                      <h2 className="text-4xl font-tangerine italic text-gold-BIS sm:text-5xl lg:text-6xl">
+                    <div className="mt-4 text-center">
+                      <h2 className="text-5xl font-tangerine italic text-gold-BIS lg:text-6xl">
                         {plant.name}
                       </h2>
                       <h3 className="text-lg font-josefinslab text-black sm:text-lg lg:text-xl">
