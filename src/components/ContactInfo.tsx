@@ -92,7 +92,7 @@ const ContactInfo = () => {
       {/* Image de la boutique */}
       <div className="mt-14">
         <Image
-          src="/images/boutique.jpg"
+          src="/images/boutique.webp"
           alt="Boutique Au temps de la Rose"
           width={800}
           height={600}
