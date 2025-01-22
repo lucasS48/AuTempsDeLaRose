@@ -1,4 +1,4 @@
-
+import Link from 'next/link';
 import ContactInfo from "./ContactInfo";
 
 const Footer = () => {
@@ -11,12 +11,12 @@ const Footer = () => {
       {/* Footer Bottom */}
       <div className="mt-4 border-t border-gray-300 pt-4 pb-4 text-center text-sm">
       <div>
-          <a
+          <Link
             href="/mentions" // URL à adapter
             className="text-blue-600 hover:underline"
           >
             Mentions légales & Politique de confidentialité
-          </a>
+          </Link>
         </div>
         <p className="mb-2">
           &copy; {new Date().getFullYear()} Au temps de la Rose. Tous droits
