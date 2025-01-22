@@ -116,6 +116,7 @@ const variants = {
             <motion.div
             key={plant.name}
             className="absolute w-[90vw] h-[80vh] sm:w-[35vw] sm:h-[70vmin] perspective"
+            style={{ touchAction: 'pan-x' }}
             variants={variants}
             animate={
               index === currentIndex

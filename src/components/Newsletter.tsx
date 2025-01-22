@@ -32,7 +32,17 @@ const Newsletter = () => {
   };
 
   return (
-    <div className="bg-beige py-10 sm:py-16 px-4 shadow-md">
+    <div className="
+    bg-beige
+    py-10
+    sm:py-16
+    px-6       /* Base : petits écrans (mobile) */
+    sm:px-12    /* >= 640px */
+    md:px-16   /* >= 768px */
+    lg:px-20   /* >= 1024px */
+    xl:px-40   /* >= 1280px */
+    shadow-md
+  ">
       <h2 className="text-4xl font-bold mb-4 text-center">
         Ne manquez plus aucune nouveauté !
       </h2>
