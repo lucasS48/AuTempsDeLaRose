@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { fetchPlantsData } from "../api/api";
 import { motion, PanInfo } from "framer-motion";
 import Image from "next/image";
+import Newsletter from "@/components/Newsletter";
 
 import { PlantData } from "@/components/types";
 
@@ -296,6 +297,8 @@ const variants = {
           </button>
         </div>
       </div>
+      {/* Newsletter */}
+      <Newsletter />
     </>
   );
 }

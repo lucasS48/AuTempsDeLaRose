@@ -1,4 +1,5 @@
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 
 const Header = () => {
   return (
@@ -9,9 +10,12 @@ const Header = () => {
 
         {/* Nom de la boutique centré */}
         <div className="absolute left-1/2 transform -translate-x-1/2">
-          <span className="text-black font-josefinslab text-xl leading-tight text-center block sm:text-lg break-words">
+          <Link
+            href="/plantes"
+            className="text-black font-josefinslab text-xl leading-tight text-center block sm:text-lg break-words"
+          >
             Au Temps<br />de la Rose
-          </span>
+          </Link>
         </div>
 
         {/* Logo à droite */}

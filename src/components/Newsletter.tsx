@@ -11,7 +11,7 @@ const Newsletter = () => {
     try {
       const response = await axios.post("/api/subscribe", {
         email_address: email,
-        status: "subscribed", // Ajout direct à l'audience
+        status: "subscribed",
       });
 
       if (response.status === 200) {
@@ -34,11 +34,13 @@ const Newsletter = () => {
   return (
     <div className="bg-beige py-10 sm:py-16 px-4 shadow-md">
       <h2 className="text-4xl font-bold mb-4 text-center">
-        Prenez soin de vos plantes
+        Ne manquez plus aucune nouveauté !
       </h2>
       <p className="text-sm mb-6 text-center">
-        Découvrez nos conseils pour maintenir vos plantes en pleine santé et
-        épanouies toute l&apos;année.
+        Inscrivez-vous à notre newsletter pour être informé(e) en avant-première
+        de toutes nos nouvelles collections, de nos ateliers créatifs et de nos
+        offres spéciales pour les fêtes. Restez connecté(e) à notre univers et
+        ne ratez plus rien !
       </p>
       {message && <p className="text-base mt-4 mb-4 text-center">{message}</p>}
       <form
@@ -47,7 +49,7 @@ const Newsletter = () => {
       >
         <input
           type="email"
-          placeholder="Entrer votre adresse email"
+          placeholder="Entrez votre adresse email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -58,14 +60,15 @@ const Newsletter = () => {
           type="submit"
           className="px-6 py-3 rounded bg-grey text-white font-bold hover:bg-gray-700 transition duration-300"
         >
-          S&apos;inscrire
+          Je m’inscris
         </button>
       </form>
 
       <p className="text-xs mt-4 text-center">
-        En vous inscrivant, vous acceptez de recevoir des e-mails réguliers de
-        notre part. Vous pouvez vous désabonner à tout moment en suivant le lien
-        présent dans nos e-mails.
+        En vous inscrivant, vous recevrez régulièrement nos meilleures offres
+        et serez toujours au courant de nos prochains ateliers et événements.
+        Vous pouvez vous désabonner à tout moment grâce au lien de
+        désinscription présent dans nos e-mails.
       </p>
     </div>
   );
