@@ -78,55 +78,33 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
   ) => {
-    const velocityThreshold = 0.5; // Seuil de vélocité
-    const offsetThreshold = 100; // Seuil de déplacement
-    const verticalOffsetThreshold = 50; // Tolérance pour le mouvement vertical
-
-    // Vérifiez si le mouvement est principalement horizontal
+    const velocityThreshold = 0.2; // Déclenche plus vite le changement de carte
+    const offsetThreshold = 50; // Déclenche au moindre mouvement significatif
+    const verticalOffsetThreshold = 40; // Réduit la tolérance verticale
+  
+    // Vérifier si le mouvement est principalement horizontal
     if (
       Math.abs(info.offset.x) >
       Math.abs(info.offset.y) + verticalOffsetThreshold
     ) {
-      if (
-        info.offset.x > offsetThreshold ||
-        info.velocity.x > velocityThreshold
-      ) {
-        // Glissement vers la droite
+      if (info.offset.x > offsetThreshold || info.velocity.x > velocityThreshold) {
         handlePrevious();
       } else if (
         info.offset.x < -offsetThreshold ||
         info.velocity.x < -velocityThreshold
       ) {
-        // Glissement vers la gauche
         handleNext();
       }
     }
   };
 
-  const variants = {
-    center: {
-      scale: 1,
-      x: 0,
-      opacity: 1,
-      zIndex: 20,
-    },
-    left: {
-      scale: 0.9,
-      x: "-100%",
-      opacity: 0.8,
-      zIndex: 10,
-    },
-    right: {
-      scale: 0.9,
-      x: "100%",
-      opacity: 0.8,
-      zIndex: 10,
-    },
-    hidden: {
-      opacity: 0,
-      zIndex: 0,
-    },
-  };
+  // Variants pour une transition plus fluide
+const variants = {
+  center: { scale: 1, x: 0, opacity: 1, zIndex: 20 },
+  left: { scale: 0.95, x: "-110%", opacity: 0.7, zIndex: 10 },
+  right: { scale: 0.95, x: "110%", opacity: 0.7, zIndex: 10 },
+  hidden: { opacity: 0, zIndex: 0 },
+};
 
   return (
     <>
@@ -135,29 +113,30 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
         <div className="relative w-screen h-[80vh] sm:h-[90vh] flex items-center justify-center overflow-hidden mt-10 sm:mt-0">
           {plants.map((plant, index) => (
             <motion.div
-              key={plant.name}
-              className="absolute w-[90vw] h-[80vh] sm:w-[35vw] sm:h-[70vmin] perspective"
-              variants={variants}
-              animate={
-                index === currentIndex
-                  ? "center"
-                  : index === (currentIndex - 1 + plants.length) % plants.length
-                  ? "left"
-                  : index === (currentIndex + 1) % plants.length
-                  ? "right"
-                  : "hidden"
-              }
-              initial="hidden"
-              transition={{
-                type: "spring",
-                stiffness: 120,
-                damping: 20,
-                duration: 1.5,
-              }}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              onDragEnd={handleDragEnd}
-            >
+            key={plant.name}
+            className="absolute w-[90vw] h-[80vh] sm:w-[35vw] sm:h-[70vmin] perspective"
+            variants={variants}
+            animate={
+              index === currentIndex
+                ? "center"
+                : index === (currentIndex - 1 + plants.length) % plants.length
+                ? "left"
+                : index === (currentIndex + 1) % plants.length
+                ? "right"
+                : "hidden"
+            }
+            initial="hidden"
+            transition={{
+              type: "spring",
+              stiffness: 80, // Réduit la rigidité pour un mouvement plus fluide
+              damping: 15, // Augmente légèrement l’amortissement pour éviter les rebonds
+              duration: 1.2,
+            }}
+            drag="x"
+            dragElastic={0.2} // Autorise un léger étirement
+            dragMomentum={false} // Désactive la projection rapide après relâchement
+            onDragEnd={handleDragEnd}
+          >
               <motion.div
                 className="relative w-full h-full transition-transform duration-700"
                 style={{
