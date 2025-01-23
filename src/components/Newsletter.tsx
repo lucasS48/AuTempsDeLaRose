@@ -43,7 +43,7 @@ const Newsletter = () => {
     xl:px-40   /* >= 1280px */
     shadow-md
   ">
-      <h2 className="text-4xl font-bold mb-4 text-center">
+      <h2 className="text-4xl font-bold mb-6 text-center">
         Ne manquez plus aucune nouveauté !
       </h2>
       <p className="text-sm mb-6 text-center">

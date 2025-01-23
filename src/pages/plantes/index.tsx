@@ -95,8 +95,6 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
         info.velocity.x < -velocityThreshold
       ) {
         handleNext();
-      } else {
-        setCurrentIndex((prev) => prev);
       }
     }
   };
