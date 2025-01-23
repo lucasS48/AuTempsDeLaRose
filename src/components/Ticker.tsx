@@ -15,7 +15,7 @@ interface TickerProps {
 const Ticker: React.FC<TickerProps> = ({
   images,
   height = 200,
-  speed = 0.3,
+  speed = 0.5,
 }) => {
   const tickerRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);

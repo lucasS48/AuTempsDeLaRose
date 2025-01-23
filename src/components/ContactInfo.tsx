@@ -110,7 +110,7 @@
              On utilise Ticker avec la liste d'images,
              la hauteur et la vitesse qu'on veut.
            */}
-           <Ticker images={images} height={300} speed={0.3} />
+           <Ticker images={images} height={300} speed={0.5} />
          </div>
        </div>
      );
