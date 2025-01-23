@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { fetchPlantsData } from "../api/api";
-import { motion, PanInfo } from "framer-motion";
+import { motion } from "framer-motion"; // On ne récupère plus PanInfo
+import { useSwipeable } from "react-swipeable"; // <-- Bibliothèque de détection de swipe
 import Image from "next/image";
 import Newsletter from "@/components/Newsletter";
 
@@ -14,6 +15,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
   const [fontSizes, setFontSizes] = useState<string[]>([]);
 
   useEffect(() => {
+    // Si on arrive sur une URL type /?plant=mon-plant, on se positionne sur cette carte
     const plantSlug = router.query.plant as string;
     if (plantSlug) {
       const index = plants.findIndex(
@@ -24,8 +26,10 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
       }
     }
 
+    // Initialiser l'état flipped (carte retournée ou non) pour chaque plante
     setFlippedStates(plants.map(() => false));
 
+    // Calcul dynamique de la taille de police (pour éviter le texte qui déborde)
     const calculateFontSizes = () => {
       const newFontSizes = plants.map((plant) => {
         const tempDiv = document.createElement("div");
@@ -36,9 +40,10 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
         tempDiv.style.lineHeight = "1.5";
         tempDiv.innerHTML = `${plant.name.toUpperCase()}<br>${
           plant.subtitle
-        }<br>${plant.sunlight}<br>${plant.watering}<br>${plant.blooming}<br>${
-          plant.tips
-        }`;
+        }<br>${plant.sunlight}<br>${plant.watering}<br>${
+          plant.blooming
+        }<br>${plant.tips}`;
+
         document.body.appendChild(tempDiv);
 
         let fontSize = 16;
@@ -58,88 +63,79 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
     return () => window.removeEventListener("resize", calculateFontSizes);
   }, [router.query.plant, plants]);
 
+  // Fonctions pour passer d'une carte à l'autre
   const handleNext = () => {
-    setFlippedStates(plants.map(() => false)); // Réinitialise toutes les cartes
+    setFlippedStates(plants.map(() => false)); // On réinitialise l'état "flipped" pour toutes les cartes
     setCurrentIndex((prev) => (prev + 1) % plants.length);
   };
-  
+
   const handlePrevious = () => {
-    setFlippedStates(plants.map(() => false)); // Réinitialise toutes les cartes
+    setFlippedStates(plants.map(() => false));
     setCurrentIndex((prev) => (prev - 1 + plants.length) % plants.length);
   };
-  
 
+  // Hook de détection du swipe (gauche/droite) via react-swipeable
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => {
+      // Balayage vers la gauche => carte suivante
+      handleNext();
+    },
+    onSwipedRight: () => {
+      // Balayage vers la droite => carte précédente
+      handlePrevious();
+    },
+    preventScrollOnSwipe: true, // pour éviter que la page ne scrolle verticalement pendant le swipe
+    trackMouse: true,           // pour détecter aussi le "swipe" à la souris (drag)
+    // d'autres options disponibles si besoin, cf. doc react-swipeable
+  });
+
+  // Variants Framer Motion pour positionner/transitionner les cartes
+  const variants = {
+    center: { scale: 1, x: 0, opacity: 1, zIndex: 20 },
+    left: { scale: 0.95, x: "-110%", opacity: 0.7, zIndex: 10 },
+    right: { scale: 0.95, x: "110%", opacity: 0.7, zIndex: 10 },
+    hidden: { opacity: 0, zIndex: 0 },
+  };
+
+  // Gère le flip de la carte (face avant/face arrière)
   const handleFlip = (index: number) => {
     setFlippedStates((prev) =>
       prev.map((flipped, i) => (i === index ? !flipped : flipped))
     );
   };
 
-  const handleDragEnd = (
-    event: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo
-  ) => {
-    const velocityThreshold = 0.2; // Déclenche plus vite le changement de carte
-    const offsetThreshold = 50; // Déclenche au moindre mouvement significatif
-    const verticalOffsetThreshold = 40; // Réduit la tolérance verticale
-  
-    // Vérifier si le mouvement est principalement horizontal
-    if (
-      Math.abs(info.offset.x) >
-      Math.abs(info.offset.y) + verticalOffsetThreshold
-    ) {
-      if (info.offset.x > offsetThreshold || info.velocity.x > velocityThreshold) {
-        handlePrevious();
-      } else if (
-        info.offset.x < -offsetThreshold ||
-        info.velocity.x < -velocityThreshold
-      ) {
-        handleNext();
-      }
-    }
-  };
-
-  // Variants pour une transition plus fluide
-const variants = {
-  center: { scale: 1, x: 0, opacity: 1, zIndex: 20 },
-  left: { scale: 0.95, x: "-110%", opacity: 0.7, zIndex: 10 },
-  right: { scale: 0.95, x: "110%", opacity: 0.7, zIndex: 10 },
-  hidden: { opacity: 0, zIndex: 0 },
-};
-
   return (
     <>
       <div className="relative bg-white flex flex-col items-center justify-center overflow-hidden  bg-[url('/images/bg-fleur.webp')] bg-cover bg-center">
-        {/* Carrousel */}
-        <div className="relative w-screen h-[80vh] sm:h-[90vh] flex items-center justify-center overflow-hidden mt-10 sm:mt-0">
+        {/* Conteneur principal du carrousel */}
+        <div
+          className="relative w-screen h-[80vh] sm:h-[90vh] flex items-center justify-center overflow-hidden mt-10 sm:mt-0"
+          {...swipeHandlers} // <-- on applique la détection de swipe ici
+        >
           {plants.map((plant, index) => (
             <motion.div
-            key={plant.name}
-            className="absolute w-[90vw] h-[80vh] sm:w-[35vw] sm:h-[70vmin] perspective"
-            style={{ touchAction: 'pan-x' }}
-            variants={variants}
-            animate={
-              index === currentIndex
-                ? "center"
-                : index === (currentIndex - 1 + plants.length) % plants.length
-                ? "left"
-                : index === (currentIndex + 1) % plants.length
-                ? "right"
-                : "hidden"
-            }
-            initial="hidden"
-            transition={{
-              type: "spring",
-              stiffness: 80, // Réduit la rigidité pour un mouvement plus fluide
-              damping: 15, // Augmente légèrement l’amortissement pour éviter les rebonds
-              duration: 1.2,
-            }}
-            drag="x"
-            dragElastic={0.2} // Autorise un léger étirement
-            dragMomentum={false} // Désactive la projection rapide après relâchement
-            onDragEnd={handleDragEnd}
-            
-          >
+              key={plant.name}
+              className="absolute w-[90vw] h-[80vh] sm:w-[35vw] sm:h-[70vmin] perspective"
+              variants={variants}
+              animate={
+                index === currentIndex
+                  ? "center"
+                  : index === (currentIndex - 1 + plants.length) % plants.length
+                  ? "left"
+                  : index === (currentIndex + 1) % plants.length
+                  ? "right"
+                  : "hidden"
+              }
+              initial="hidden"
+              transition={{
+                type: "spring",
+                stiffness: 80, // Réduit la rigidité pour un mouvement plus fluide
+                damping: 15,   // Augmente légèrement l’amortissement pour éviter les rebonds
+                duration: 1.2,
+              }}
+              // On retire drag="x" / onDragEnd / dragElastic / etc. 
+            >
+              {/* L'élément qui se retourne */}
               <motion.div
                 className="relative w-full h-full transition-transform duration-700"
                 style={{
@@ -162,7 +158,7 @@ const variants = {
                     {/* Section image */}
                     <div
                       className="relative mt-6"
-                      style={{ width: "98%", height: "90%" }} // Taille de l'image à 90% de la largeur et 70% de la hauteur du parent
+                      style={{ width: "98%", height: "90%" }}
                     >
                       <Image
                         src={plant.image}
@@ -263,16 +259,15 @@ const variants = {
           ))}
         </div>
 
-        {/* Boutons de contrôle */}
+        {/* Boutons de contrôle (précédent/suivant) */}
         <div className="flex items-center justify-center gap-6 mb-10 mt-6">
-          {/* Bouton précédent */}
           <button
             onClick={handlePrevious}
             className="w-20 h-10 flex items-center justify-center border-[1px] border-black rounded-[40px] bg-beige hover:bg-beige-BIS shadow-md transition duration-300"
           >
             <Image
-              src="/icons/thumbnail_fleche-fine.webp" // Remplacez par le chemin correct
-              alt="Flèche droite"
+              src="/icons/thumbnail_fleche-fine.webp"
+              alt="Flèche gauche"
               width={40}
               height={30}
               className="rotate-180"
@@ -280,18 +275,18 @@ const variants = {
           </button>
 
           <Image
-            src="/icons/rose.webp" // Remplacez par le chemin correct
-            alt="Flèche droite"
+            src="/icons/rose.webp"
+            alt="Rose"
             width={40}
             height={30}
           />
-          {/* Bouton suivant */}
+
           <button
             onClick={handleNext}
             className="w-20 h-10 flex items-center justify-center border-[1px] border-black rounded-[40px] bg-beige hover:bg-beige-BIS shadow-md transition duration-300"
           >
             <Image
-              src="/icons/thumbnail_fleche-fine.webp" // Remplacez par le chemin correct
+              src="/icons/thumbnail_fleche-fine.webp"
               alt="Flèche droite"
               width={40}
               height={30}
@@ -299,6 +294,7 @@ const variants = {
           </button>
         </div>
       </div>
+
       {/* Newsletter */}
       <Newsletter />
     </>
@@ -309,6 +305,6 @@ export async function getStaticProps() {
   const plants = (await fetchPlantsData()) || [];
   return {
     props: { plants },
-    revalidate: 60, // Temps en secondes avant la regénération
+    revalidate: 60, // Temps en secondes avant la regénération (ISR)
   };
 }
