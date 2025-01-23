@@ -95,6 +95,8 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
         info.velocity.x < -velocityThreshold
       ) {
         handleNext();
+      } else {
+        setCurrentIndex((prev) => prev);
       }
     }
   };
@@ -138,13 +140,7 @@ const variants = {
             dragElastic={0.2} // Autorise un léger étirement
             dragMomentum={false} // Désactive la projection rapide après relâchement
             onDragEnd={handleDragEnd}
-            onTouchStart={(e) => {
-              // S’il y a plus d’un doigt sur l’écran, c’est un pinch ou un autre geste multi-touch.
-              // On empêche alors Framer Motion de gérer le "drag"
-              if (e.touches.length > 1) {
-                e.stopPropagation();
-              }
-            }}
+            
           >
               <motion.div
                 className="relative w-full h-full transition-transform duration-700"
