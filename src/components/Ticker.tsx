@@ -1,4 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
+import Image from "next/image";
+
 
 /**
  * Props pour le composant Ticker.
@@ -15,9 +17,8 @@ interface TickerProps {
 const Ticker: React.FC<TickerProps> = ({
   images,
   height = 200,
-  speed = 0.5,
+  speed = 0.3,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const tickerRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
   const [totalWidth, setTotalWidth] = useState(0);
@@ -50,10 +51,13 @@ const Ticker: React.FC<TickerProps> = ({
     requestAnimationFrame(animate);
   }, [speed, totalWidth]);
 
-  useEffect(() => {
-    requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animate as any);
-  }, [animate]);
+  let animationFrameId: number;
+
+useEffect(() => {
+  animationFrameId = requestAnimationFrame(animate);
+  return () => cancelAnimationFrame(animationFrameId);
+}, [animate]);
+
 
   return (
     <div
