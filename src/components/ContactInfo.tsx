@@ -10,23 +10,12 @@
    } from "@fortawesome/free-solid-svg-icons";
    import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
    
-   // On importe le composant Ticker qu'on vient de créer
-   import Ticker from "@/components/Ticker"; // ajustez le chemin selon votre arborescence
    
    const ContactInfo: React.FC = () => {
-     // Vos images
-     const images = [
-       "/images/boutique.webp",
-       "/images/IMG_3832.webp",
-       "/images/IMG_3867.webp",
-       "/images/IMG_3868.webp",
-       "/images/IMG_3870.webp",
-       "/images/IMG_3873.webp",
-       "/images/IMG_3874.webp",
-     ];
+    
    
      return (
-       <div className="bg-white py-10 sm:py-20 sm:px-32 px-6">
+       <div className="bg-white py-10 sm:py-18 sm:px-32 px-6">
          {/* --- Section contact (inchangée) --- */}
          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
            {/* Section gauche */}
@@ -104,14 +93,7 @@
            </a>
          </div>
    
-         {/* --- Ticker défilant --- */}
-         <div className="mt-14">
-           {/*
-             On utilise Ticker avec la liste d'images,
-             la hauteur et la vitesse qu'on veut.
-           */}
-           <Ticker images={images} height={300} speed={0.5} />
-         </div>
+         
        </div>
      );
    };

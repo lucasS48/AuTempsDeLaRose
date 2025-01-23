@@ -5,10 +5,22 @@ import { motion } from "framer-motion"; // On ne récupère plus PanInfo
 import { useSwipeable } from "react-swipeable"; // <-- Bibliothèque de détection de swipe
 import Image from "next/image";
 import Newsletter from "@/components/Newsletter";
-
+import ContactInfo from "@/components/ContactInfo";
+import Ticker from "@/components/Ticker";
+   
 import { PlantData } from "@/components/types";
 
 export default function Carousel({ plants }: { plants: PlantData[] }) {
+  // Vos images
+  const images = [
+    "/images/boutique.webp",
+    "/images/IMG_3832.webp",
+    "/images/IMG_3867.webp",
+    "/images/IMG_3868.webp",
+    "/images/IMG_3870.webp",
+    "/images/IMG_3873.webp",
+    "/images/IMG_3874.webp",
+  ];
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [flippedStates, setFlippedStates] = useState<boolean[]>([]);
@@ -297,6 +309,12 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
 
       {/* Newsletter */}
       <Newsletter />
+
+      <ContactInfo />
+
+      {/* --- Ticker défilant --- */}
+      <Ticker images={images} height={300} speed={0.5} />
+      
     </>
   );
 }
