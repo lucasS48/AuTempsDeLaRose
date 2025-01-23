@@ -1,6 +1,4 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import Image from "next/image";
-
 
 /**
  * Props pour le composant Ticker.
