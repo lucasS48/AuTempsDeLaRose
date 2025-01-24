@@ -1,5 +1,8 @@
 // pages/mentions-legales-confidentialite.js
 import React from "react";
+import Ticker from "@/components/Ticker";
+import ContactInfo from "@/components/ContactInfo";
+import { imagesDefilantes } from "@/components/types";
 
 const Mentions = () => {
   // === Variables à personnaliser ===
@@ -24,6 +27,7 @@ const Mentions = () => {
   const lastUpdate = "23/01/2025";
 
   return (
+    <>
     <div className="bg-gray-50 shadow-lg">
       
 
@@ -214,6 +218,11 @@ const Mentions = () => {
         </article>
       </div>
     </div>
+    <ContactInfo />
+
+    {/* --- Ticker défilant --- */}
+    <Ticker images={imagesDefilantes} height={300} speed={0.5} />
+    </>
   );
 };
 
