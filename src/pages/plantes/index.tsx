@@ -24,7 +24,6 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [flippedStates, setFlippedStates] = useState<boolean[]>([]);
-  const [fontSizes, setFontSizes] = useState<string[]>([]);
 
   useEffect(() => {
     // Si on arrive sur une URL type /?plant=mon-plant, on se positionne sur cette carte
@@ -41,38 +40,8 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
     // Initialiser l'état flipped (carte retournée ou non) pour chaque plante
     setFlippedStates(plants.map(() => false));
 
-    // Calcul dynamique de la taille de police (pour éviter le texte qui déborde)
-    const calculateFontSizes = () => {
-      const newFontSizes = plants.map((plant) => {
-        const tempDiv = document.createElement("div");
-        tempDiv.style.position = "absolute";
-        tempDiv.style.visibility = "hidden";
-        tempDiv.style.fontSize = "16px";
-        tempDiv.style.width = "90%";
-        tempDiv.style.lineHeight = "1.5";
-        tempDiv.innerHTML = `${plant.name.toUpperCase()}<br>${
-          plant.subtitle
-        }<br>${plant.sunlight}<br>${plant.watering}<br>${
-          plant.blooming
-        }<br>${plant.tips}`;
+    
 
-        document.body.appendChild(tempDiv);
-
-        let fontSize = 16;
-        while (tempDiv.scrollHeight > 500 && fontSize > 10) {
-          fontSize -= 1;
-          tempDiv.style.fontSize = `${fontSize}px`;
-        }
-
-        document.body.removeChild(tempDiv);
-        return `${fontSize}px`;
-      });
-      setFontSizes(newFontSizes);
-    };
-
-    calculateFontSizes();
-    window.addEventListener("resize", calculateFontSizes);
-    return () => window.removeEventListener("resize", calculateFontSizes);
   }, [router.query.plant, plants]);
 
   // Fonctions pour passer d'une carte à l'autre
@@ -206,7 +175,6 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                     <div
                       className="relative z-10 font-josefinslab"
                       style={{
-                        fontSize: fontSizes[index],
                         overflowY: "scroll",
                         scrollbarWidth: "none",
                         msOverflowStyle: "none",
@@ -258,7 +226,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                       </div>
 
                       <div className="bg-beige-BIS p-4 mt-6 rounded-[40px] shadow-sm border-gold-BIS border-[2px]">
-                        <h4 className="font-josefinslab text-white text-2xl text-center mb-2">
+                        <h4 className="font-josefinslab font-bold text-white text-2xl text-center mb-2">
                           Conseils :
                         </h4>
                         <p className="text-white text-lg">{plant.tips}</p>
