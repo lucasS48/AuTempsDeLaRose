@@ -10,14 +10,13 @@
    } from "@fortawesome/free-solid-svg-icons";
    import { faInstagram, faFacebook } from "@fortawesome/free-brands-svg-icons";
    
-   
    const ContactInfo: React.FC = () => {
     
    
      return (
        <div className="bg-white py-10 sm:py-18 sm:px-32 px-6">
          {/* --- Section contact (inchangée) --- */}
-         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-6">
            {/* Section gauche */}
            <div>
              <h2 className="text-sm font-semibold mb-4">Conseils</h2>
@@ -92,8 +91,6 @@
              <FontAwesomeIcon icon={faFacebook} className="text-5xl" />
            </a>
          </div>
-   
-         
        </div>
      );
    };
