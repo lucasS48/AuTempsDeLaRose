@@ -24,6 +24,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [flippedStates, setFlippedStates] = useState<boolean[]>([]);
+  const [isZoomed, setIsZoomed] = useState(false);
 
   useEffect(() => {
     // Si on arrive sur une URL type /?plant=mon-plant, on se positionne sur cette carte
@@ -40,7 +41,13 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
     // Initialiser l'état flipped (carte retournée ou non) pour chaque plante
     setFlippedStates(plants.map(() => false));
 
-    
+    const handleZoom = () => {
+      const zoomLevel = window.visualViewport?.scale || 1;
+      setIsZoomed(zoomLevel > 1);
+    };
+
+    window.visualViewport?.addEventListener("resize", handleZoom);
+  return () => window.visualViewport?.removeEventListener("resize", handleZoom);
 
   }, [router.query.plant, plants]);
 
@@ -72,9 +79,9 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
 
   // Variants Framer Motion pour positionner/transitionner les cartes
   const variants = {
-    center: { scale: 1, x: 0, opacity: 1, zIndex: 20 },
-    left: { scale: 0.95, x: "-110%", opacity: 0.7, zIndex: 10 },
-    right: { scale: 0.95, x: "110%", opacity: 0.7, zIndex: 10 },
+    center: { scale: isZoomed ? 1 : 1, x: 0, opacity: 1, zIndex: 20 },
+    left: { scale: isZoomed ? 1 : 0.95, x: "-110%", opacity: 0.7, zIndex: 10 },
+    right: { scale: isZoomed ? 1 : 0.95, x: "110%", opacity: 0.7, zIndex: 10 },
     hidden: { opacity: 0, zIndex: 0 },
   };
 
