@@ -55,20 +55,20 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
     setCurrentIndex((prev) => (prev - 1 + plants.length) % plants.length);
   };
 
-  // Hook de détection du swipe (gauche/droite) via react-swipeable
   const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => {
-      // Balayage vers la gauche => carte suivante
+    onSwipedLeft: (eventData) => {
+      if ('touches' in eventData.event && eventData.event.touches.length > 1) return;
       handleNext();
     },
-    onSwipedRight: () => {
-      // Balayage vers la droite => carte précédente
+    onSwipedRight: (eventData) => {
+      if ('touches' in eventData.event && eventData.event.touches.length > 1) return;
       handlePrevious();
     },
-    preventScrollOnSwipe: true, // pour éviter que la page ne scrolle verticalement pendant le swipe
-    trackMouse: true,           // pour détecter aussi le "swipe" à la souris (drag)
-    // d'autres options disponibles si besoin, cf. doc react-swipeable
+    preventScrollOnSwipe: true,
+    trackMouse: true,
   });
+  
+  
 
   // Variants Framer Motion pour positionner/transitionner les cartes
   const variants = {
