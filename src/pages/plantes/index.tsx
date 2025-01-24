@@ -104,9 +104,9 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
               initial="hidden"
               transition={{
                 type: "spring",
-                stiffness: 80, // Réduit la rigidité pour un mouvement plus fluide
-                damping: 15,   // Augmente légèrement l’amortissement pour éviter les rebonds
-                duration: 1.2,
+                stiffness: 50, // Réduit la rigidité pour un mouvement plus fluide
+                damping: 20,   // Augmente légèrement l’amortissement pour éviter les rebonds
+                duration: 0.8,
               }}
               // On retire drag="x" / onDragEnd / dragElastic / etc. 
             >
