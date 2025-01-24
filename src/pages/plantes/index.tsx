@@ -215,7 +215,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                       <h2 className="text-2xl sm:text-3xl lg:text-4xl text-gold-BIS text-center mt-4 ">
                         {plant.name.toUpperCase()}
                       </h2>
-                      <h3 className="font-josefinslab text-lg sm:text-xl lg:text-2xl text-center mb-6 italic">
+                      <h3 className="font-josefinslab text-xl sm:text-2xl lg:text-3xl text-center mb-6 italic">
                         - {plant.subtitle} -
                       </h3>
 
@@ -227,7 +227,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                             width={48}
                             height={48}
                           />
-                          <p className="text-base text-center">
+                          <p className="text-lg text-center">
                             {plant.sunlight}
                           </p>
                         </div>
@@ -239,7 +239,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                             width={48}
                             height={48}
                           />
-                          <p className="text-base text-center">
+                          <p className="text-lg text-center">
                             {plant.watering}
                           </p>
                         </div>
@@ -251,7 +251,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                             width={48}
                             height={48}
                           />
-                          <p className="text-base text-center">
+                          <p className="text-lg text-center">
                             {plant.blooming}
                           </p>
                         </div>
@@ -261,7 +261,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
                         <h4 className="font-josefinslab text-white text-2xl text-center mb-2">
                           Conseils :
                         </h4>
-                        <p className="text-white">{plant.tips}</p>
+                        <p className="text-white text-lg">{plant.tips}</p>
                       </div>
                     </div>
                   </div>
@@ -314,7 +314,7 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
 
       {/* --- Ticker défilant --- */}
       <Ticker images={images} height={300} speed={0.5} />
-      
+
     </>
   );
 }
