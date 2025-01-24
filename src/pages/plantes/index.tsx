@@ -64,16 +64,20 @@ export default function Carousel({ plants }: { plants: PlantData[] }) {
 
   const swipeHandlers = useSwipeable({
     onSwipedLeft: (eventData) => {
-      if ('touches' in eventData.event && eventData.event.touches.length > 1) return;
+      if (!eventData.event) return; // Sécurisation contre les valeurs null ou undefined
+      if (eventData.event instanceof TouchEvent && eventData.event.touches.length > 1) return; // Désactiver le swipe en cas de pinch-to-zoom
       handleNext();
     },
     onSwipedRight: (eventData) => {
-      if ('touches' in eventData.event && eventData.event.touches.length > 1) return;
+      if (!eventData.event) return;
+      if (eventData.event instanceof TouchEvent && eventData.event.touches.length > 1) return;
       handlePrevious();
     },
     preventScrollOnSwipe: true,
     trackMouse: true,
   });
+  
+  
   
   
 
