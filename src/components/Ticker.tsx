@@ -20,14 +20,36 @@ const Ticker: React.FC<TickerProps> = ({
   const tickerRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
   const [totalWidth, setTotalWidth] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const animationRef = useRef<number | null>(null);
 
   const doubledImages = [...images, ...images];
 
-  // Mesurer la largeur totale d'une série d'images
+  // Observer pour détecter si le ticker est visible
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 } // Détecte si au moins 10% du composant est visible
+    );
+
+    if (tickerRef.current) {
+      observer.observe(tickerRef.current);
+    }
+
+    return () => {
+      if (tickerRef.current) {
+        observer.unobserve(tickerRef.current);
+      }
+    };
+  }, []);
+
+  // Mesurer la largeur totale des images
   useEffect(() => {
     if (tickerRef.current) {
-      const firstSet = images.length;
       let width = 0;
+      const firstSet = images.length;
       for (let i = 0; i < firstSet; i++) {
         const child = tickerRef.current.children[i] as HTMLElement;
         if (child) {
@@ -38,6 +60,7 @@ const Ticker: React.FC<TickerProps> = ({
     }
   }, [images, height]);
 
+  // Fonction d'animation
   const animate = useCallback(() => {
     setOffset((prevOffset) => {
       let newOffset = prevOffset - speed;
@@ -46,25 +69,32 @@ const Ticker: React.FC<TickerProps> = ({
       }
       return newOffset;
     });
-    requestAnimationFrame(animate);
+
+    animationRef.current = requestAnimationFrame(animate);
   }, [speed, totalWidth]);
 
-  let animationFrameId: number;
+  // Gérer le démarrage et l'arrêt de l'animation en fonction de la visibilité
+  useEffect(() => {
+    if (isVisible) {
+      animationRef.current = requestAnimationFrame(animate);
+    } else if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
 
-useEffect(() => {
-  animationFrameId = requestAnimationFrame(animate);
-  return () => cancelAnimationFrame(animationFrameId);
-}, [animate]);
-
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isVisible, animate]);
 
   return (
     <div
+      ref={tickerRef}
       className="overflow-hidden w-full relative"
       style={{ height: `${height}px` }}
     >
-      {/* Conteneur flex doublé */}
       <div
-        ref={tickerRef}
         className="flex flex-row items-center h-full"
         style={{
           transform: `translateX(${offset}px)`,
